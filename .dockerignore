@@ -1,0 +1,22 @@
+# 依赖与缓存
+**/node_modules
+**/.venv
+**/__pycache__
+**/*.pyc
+
+# 本地数据
+**/*.db
+**/*.sqlite3
+
+# 构建产物（镜像内重新构建）
+frontend/dist
+
+# 版本控制与本地配置
+.git
+**/.git
+certbot
+certs
+
+# 编辑器/系统
+.DS_Store
+*.log

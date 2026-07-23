@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: #f6f8fc;
+  color: #0f172a;
+}
+
+/* 文章/案例正文排版（后端返回的 HTML） */
+.prose-cube h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 1.25rem 0 0.5rem;
+  color: #1e3a8a;
+}
+.prose-cube h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1rem 0 0.4rem;
+}
+.prose-cube p {
+  margin: 0.6rem 0;
+  line-height: 1.85;
+}
+.prose-cube ul,
+.prose-cube ol {
+  margin: 0.6rem 0;
+  padding-left: 1.4rem;
+}
+.prose-cube li {
+  margin: 0.25rem 0;
+  line-height: 1.8;
+}
+.prose-cube blockquote {
+  border-left: 4px solid #84b6ff;
+  background: #eef6ff;
+  padding: 0.6rem 1rem;
+  margin: 0.8rem 0;
+  border-radius: 0 8px 8px 0;
+  color: #1e40af;
+}
+.prose-cube code {
+  background: #e2e8f0;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.prose-cube table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8rem 0;
+  font-size: 0.92rem;
+}
+.prose-cube th,
+.prose-cube td {
+  border: 1px solid #cbd5e1;
+  padding: 0.45rem 0.7rem;
+  text-align: left;
+}
+.prose-cube th {
+  background: #eef6ff;
+  font-weight: 700;
+}
+.prose-cube a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* ===== 互动魔方 3D 视图（纯 CSS preserve-3d） ===== */
+.cube-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+}
+.cube-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4%;
+  padding: 4%;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.06);
+  box-shadow: inset 0 0 0 2px rgba(15, 23, 42, 0.25);
+  backface-visibility: visible;
+}
+.cube-sticker {
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.18);
+  transition: background 0.25s ease;
+}

@@ -1,0 +1,867 @@
+{
+ "articles": [
+  {
+   "title": "认识魔方：从零开始的第一课",
+   "category": "入门",
+   "difficulty": 1,
+   "duration": "8 分钟",
+   "order": 1,
+   "tags": [
+    "结构",
+    "配色",
+    "入门"
+   ],
+   "id": "a01-know-cube",
+   "body": "三阶魔方（3×3×3）由 **26 个块** 组成：6 个中心块（决定该面的颜色）、12 个棱块（两个颜色）、8 个角块（三个颜色）。它只有一个正确答案：让每个面都只有单一颜色。\n\n## 为什么从三阶开始\n三阶是几乎所有玩法和比赛的起点。掌握好三阶，再学二阶、四阶、盲拧都会轻松很多。\n\n## 标准配色\n国际通用（日本配色）的相对关系固定：\n- 白 ↔ 黄（相对）\n- 红 ↔ 橙（相对）\n- 蓝 ↔ 绿（相对）\n\n初学者常犯的错误是\"把中心块拆下来重装\"，请记住：**中心块永远不能动**，它们决定了配色。\n\n## 先别急着还原\n本训练营采用 **阶梯式计划**：先认识结构、学会记号，再一步步完成底层十字、还原整层，直到第一次完整还原。跟着左侧\"训练计划\"走，比直接背公式有效得多。\n\n> 小目标：今天只需能正确说出 6 个面的颜色和相对关系。",
+   "html": "<p>三阶魔方（3×3×3）由 <strong>26 个块</strong> 组成：6 个中心块（决定该面的颜色）、12 个棱块（两个颜色）、8 个角块（三个颜色）。它只有一个正确答案：让每个面都只有单一颜色。</p>\n<h2 id=\"_1\">为什么从三阶开始</h2>\n<p>三阶是几乎所有玩法和比赛的起点。掌握好三阶，再学二阶、四阶、盲拧都会轻松很多。</p>\n<h2 id=\"_2\">标准配色</h2>\n<p>国际通用（日本配色）的相对关系固定：<br />\n- 白 ↔ 黄（相对）<br />\n- 红 ↔ 橙（相对）<br />\n- 蓝 ↔ 绿（相对）</p>\n<p>初学者常犯的错误是\"把中心块拆下来重装\"，请记住：<strong>中心块永远不能动</strong>，它们决定了配色。</p>\n<h2 id=\"_3\">先别急着还原</h2>\n<p>本训练营采用 <strong>阶梯式计划</strong>：先认识结构、学会记号，再一步步完成底层十字、还原整层，直到第一次完整还原。跟着左侧\"训练计划\"走，比直接背公式有效得多。</p>\n<blockquote>\n<p>小目标：今天只需能正确说出 6 个面的颜色和相对关系。</p>\n</blockquote>"
+  },
+  {
+   "title": "标准转动记号：看懂公式的语言",
+   "category": "入门",
+   "difficulty": 1,
+   "duration": "10 分钟",
+   "order": 2,
+   "tags": [
+    "记号",
+    "公式",
+    "入门"
+   ],
+   "diagrams": [
+    "notation-demo"
+   ],
+   "id": "a02-notation",
+   "body": "所有教程和公式都用**记号（notation）**描述转动。掌握它，你才能读懂任何一篇攻略。\n\n## 六个面\n用首字母表示：\n- **U** (Up 上) **D** (Down 下)\n- **L** (Left 左) **R** (Right 右)\n- **F** (Front 前) **B** (Back 后)\n\n## 转动方向\n- 无后缀：顺时针转 90°（从该面正前方看）\n- **'**（撇号）：逆时针 90°，如 `R'`\n- **2**：转 180°，如 `U2`\n\n## 整层 vs 中层\n- `x y z`：把整个魔方沿某轴转（少用到）\n- `M E S`：中间层（Middle/Equator/Standing），进阶才用\n\n## 练习\n看着魔方，快速做出：`R R' R2 U U' U2 L L' F F'`。能做到不犹豫，就算过关。\n\n> 提示：背公式前先练熟记号，否则后期提速会卡在\"看不懂\"上。",
+   "html": "<p>所有教程和公式都用<strong>记号（notation）</strong>描述转动。掌握它，你才能读懂任何一篇攻略。</p>\n<h2 id=\"_1\">六个面</h2>\n<p>用首字母表示：<br />\n- <strong>U</strong> (Up 上) <strong>D</strong> (Down 下)<br />\n- <strong>L</strong> (Left 左) <strong>R</strong> (Right 右)<br />\n- <strong>F</strong> (Front 前) <strong>B</strong> (Back 后)</p>\n<h2 id=\"_2\">转动方向</h2>\n<ul>\n<li>无后缀：顺时针转 90°（从该面正前方看）</li>\n<li><strong>'</strong>（撇号）：逆时针 90°，如 <code>R'</code></li>\n<li><strong>2</strong>：转 180°，如 <code>U2</code></li>\n</ul>\n<h2 id=\"vs\">整层 vs 中层</h2>\n<ul>\n<li><code>x y z</code>：把整个魔方沿某轴转（少用到）</li>\n<li><code>M E S</code>：中间层（Middle/Equator/Standing），进阶才用</li>\n</ul>\n<h2 id=\"_3\">练习</h2>\n<p>看着魔方，快速做出：<code>R R' R2 U U' U2 L L' F F'</code>。能做到不犹豫，就算过关。</p>\n<blockquote>\n<p>提示：背公式前先练熟记号，否则后期提速会卡在\"看不懂\"上。</p>\n</blockquote>"
+  },
+  {
+   "title": "层先法总览：七步还原路线",
+   "category": "还原",
+   "difficulty": 2,
+   "duration": "12 分钟",
+   "order": 3,
+   "tags": [
+    "层先法",
+    "LBL",
+    "还原"
+   ],
+   "diagrams": [
+    "playground"
+   ],
+   "id": "a03-lbl-overview",
+   "body": "层先法（Layer By Layer, LBL）是最适合新手的还原方法，把还原拆成 7 个清晰步骤：\n\n1. 底层十字（Cross）\n2. 底层角块（第一层完成）\n3. 中层棱块（前两层完成）\n4. 顶层十字\n5. 顶层翻色（顶面全黄）\n6. 顶层角块归位\n7. 顶层棱块归位\n\n## 为什么先学层先法\n- 步骤直观，每步都有明确目标\n- 公式少、易记忆\n- 是通往 CFOP 等高级方法的基础\n\n## 学习顺序建议\n本训练营的 L0→L2 关卡对应层先法全过程。先不求快，追求\"不卡壳地走完七步\"。\n\n> 新手常见误区：一上来就背 57 个 OLL。请先稳定走完七步，再谈提速。",
+   "html": "<p>层先法（Layer By Layer, LBL）是最适合新手的还原方法，把还原拆成 7 个清晰步骤：</p>\n<ol>\n<li>底层十字（Cross）</li>\n<li>底层角块（第一层完成）</li>\n<li>中层棱块（前两层完成）</li>\n<li>顶层十字</li>\n<li>顶层翻色（顶面全黄）</li>\n<li>顶层角块归位</li>\n<li>顶层棱块归位</li>\n</ol>\n<h2 id=\"_1\">为什么先学层先法</h2>\n<ul>\n<li>步骤直观，每步都有明确目标</li>\n<li>公式少、易记忆</li>\n<li>是通往 CFOP 等高级方法的基础</li>\n</ul>\n<h2 id=\"_2\">学习顺序建议</h2>\n<p>本训练营的 L0→L2 关卡对应层先法全过程。先不求快，追求\"不卡壳地走完七步\"。</p>\n<blockquote>\n<p>新手常见误区：一上来就背 57 个 OLL。请先稳定走完七步，再谈提速。</p>\n</blockquote>"
+  },
+  {
+   "title": "第一步：底层十字（DaYan Cross）",
+   "category": "还原",
+   "difficulty": 2,
+   "duration": "15 分钟",
+   "order": 4,
+   "tags": [
+    "层先法",
+    "十字",
+    "还原"
+   ],
+   "id": "a04-cross",
+   "body": "目标：在**白色面**拼出一个十字，且四条棱的另一颜色与侧面中心块对齐。\n\n## 步骤\n1. 把魔方白色朝上（U 面为白）。\n2. 找到带白色的棱块，把它转到白色面，且侧边颜色对准同色中心。\n3. 重复 4 个白色棱块。\n\n## 要点\n- 不要只盯白色，要同时看侧边颜色是否对齐。\n- 遇到卡住，用 `F` / `R` 等简单转动把棱块\"放下来\"再送上去。\n\n## 达标\nL0 关卡要求：2 分钟内做出对齐的底层十字。熟练后可压到 10 秒内。\n\n> 十字是后面一切的基础，值得反复练习到形成肌肉记忆。",
+   "html": "<p>目标：在<strong>白色面</strong>拼出一个十字，且四条棱的另一颜色与侧面中心块对齐。</p>\n<h2 id=\"_1\">步骤</h2>\n<ol>\n<li>把魔方白色朝上（U 面为白）。</li>\n<li>找到带白色的棱块，把它转到白色面，且侧边颜色对准同色中心。</li>\n<li>重复 4 个白色棱块。</li>\n</ol>\n<h2 id=\"_2\">要点</h2>\n<ul>\n<li>不要只盯白色，要同时看侧边颜色是否对齐。</li>\n<li>遇到卡住，用 <code>F</code> / <code>R</code> 等简单转动把棱块\"放下来\"再送上去。</li>\n</ul>\n<h2 id=\"_3\">达标</h2>\n<p>L0 关卡要求：2 分钟内做出对齐的底层十字。熟练后可压到 10 秒内。</p>\n<blockquote>\n<p>十字是后面一切的基础，值得反复练习到形成肌肉记忆。</p>\n</blockquote>"
+  },
+  {
+   "title": "第二、三步：底层角块与中层棱块",
+   "category": "还原",
+   "difficulty": 2,
+   "duration": "18 分钟",
+   "order": 5,
+   "tags": [
+    "层先法",
+    "角块",
+    "棱块",
+    "还原"
+   ],
+   "id": "a05-f2l-lbl",
+   "body": "完成底层十字后，目标是把**前两层（F2L 在层先法语境下指底层+中层）**全部归位。\n\n## 底层角块（4 个）\n把白色角块送回底层正确位置。常用思路：\n- 角块在顶层：用 `R U R'` 系列把它塞进空位\n- 角块在底层但错位：先\"挖出来\"再塞回去\n\n## 中层棱块（4 个）\n不含黄色的棱块归位到中层。标准公式（以右侧为例）：\n- 棱块要去左：`U' L' U L U F U' F'`\n- 棱块要去右：`U R U' R' U' F' U F`\n\n## 达标\nL1 关卡要求：完整还原底层两层（白面 + 一圈侧面颜色正确）。\n\n> 提示：角块和棱块公式可以只记\"形态\"——看到错位块，自然想到该怎么挖、怎么塞。",
+   "html": "<p>完成底层十字后，目标是把<strong>前两层（F2L 在层先法语境下指底层+中层）</strong>全部归位。</p>\n<h2 id=\"4\">底层角块（4 个）</h2>\n<p>把白色角块送回底层正确位置。常用思路：<br />\n- 角块在顶层：用 <code>R U R'</code> 系列把它塞进空位<br />\n- 角块在底层但错位：先\"挖出来\"再塞回去</p>\n<h2 id=\"4_1\">中层棱块（4 个）</h2>\n<p>不含黄色的棱块归位到中层。标准公式（以右侧为例）：<br />\n- 棱块要去左：<code>U' L' U L U F U' F'</code><br />\n- 棱块要去右：<code>U R U' R' U' F' U F</code></p>\n<h2 id=\"_1\">达标</h2>\n<p>L1 关卡要求：完整还原底层两层（白面 + 一圈侧面颜色正确）。</p>\n<blockquote>\n<p>提示：角块和棱块公式可以只记\"形态\"——看到错位块，自然想到该怎么挖、怎么塞。</p>\n</blockquote>"
+  },
+  {
+   "title": "第四、五步：顶层十字与翻色",
+   "category": "还原",
+   "difficulty": 3,
+   "duration": "15 分钟",
+   "order": 6,
+   "tags": [
+    "层先法",
+    "顶层",
+    "翻色",
+    "还原"
+   ],
+   "diagrams": [
+    "fish-sune"
+   ],
+   "id": "a06-OLL-cross",
+   "body": "现在白色在底，黄色在顶但可能散乱。这一步让**顶面变成全黄**。\n\n## 顶层十字\n看顶层黄色棱块形状：\n- 点（无）：`F R U R' U' F'`\n- 直线：`F R U R' U' F'`（方向对准后再做）\n- 直角：同上公式调整后做\n\n## 顶层翻色（使全黄）\n常见公式：`R U R' U R U2 R'`（小鱼公式，反复用到黄色块呈小鱼形态）。\n\n## 达标\nL2 关卡要求：顶面全黄（之后只需把块\"归位\"即可）。\n\n> 这一步公式最易混，建议把\"小鱼\"练到闭眼能做。",
+   "html": "<p>现在白色在底，黄色在顶但可能散乱。这一步让<strong>顶面变成全黄</strong>。</p>\n<h2 id=\"_1\">顶层十字</h2>\n<p>看顶层黄色棱块形状：<br />\n- 点（无）：<code>F R U R' U' F'</code><br />\n- 直线：<code>F R U R' U' F'</code>（方向对准后再做）<br />\n- 直角：同上公式调整后做</p>\n<h2 id=\"_2\">顶层翻色（使全黄）</h2>\n<p>常见公式：<code>R U R' U R U2 R'</code>（小鱼公式，反复用到黄色块呈小鱼形态）。</p>\n<h2 id=\"_3\">达标</h2>\n<p>L2 关卡要求：顶面全黄（之后只需把块\"归位\"即可）。</p>\n<blockquote>\n<p>这一步公式最易混，建议把\"小鱼\"练到闭眼能做。</p>\n</blockquote>"
+  },
+  {
+   "title": "第六、七步：顶层角块与棱块归位",
+   "category": "还原",
+   "difficulty": 3,
+   "duration": "15 分钟",
+   "order": 7,
+   "tags": [
+    "层先法",
+    "顶层",
+    "归位",
+    "还原"
+   ],
+   "id": "a07-PLL-lbl",
+   "body": "顶面已经全黄，最后把角块和棱块**归位**到正确位置（颜色可能对但朝向错，需再翻）。\n\n## 顶层角块归位\n公式：`x R' U R U' R' U' R U' R' U2 R U2 x'`（或常用 `A Perm` 思路）。\n\n## 顶层棱块归位（三棱换）\n公式：`R U' R U R U R U' R' U' R2`。\n\n## 恭喜——第一次完整还原！\n当六面都只有一种颜色，你就完成了人生第一次还原。把它记进\"我的档案\"。\n\n> L2 达标线：完成任意一次完整还原。接下来进入提速阶段。",
+   "html": "<p>顶面已经全黄，最后把角块和棱块<strong>归位</strong>到正确位置（颜色可能对但朝向错，需再翻）。</p>\n<h2 id=\"_1\">顶层角块归位</h2>\n<p>公式：<code>x R' U R U' R' U' R U' R' U2 R U2 x'</code>（或常用 <code>A Perm</code> 思路）。</p>\n<h2 id=\"_2\">顶层棱块归位（三棱换）</h2>\n<p>公式：<code>R U' R U R U R U' R' U' R2</code>。</p>\n<h2 id=\"_3\">恭喜——第一次完整还原！</h2>\n<p>当六面都只有一种颜色，你就完成了人生第一次还原。把它记进\"我的档案\"。</p>\n<blockquote>\n<p>L2 达标线：完成任意一次完整还原。接下来进入提速阶段。</p>\n</blockquote>"
+  },
+  {
+   "title": "第一次完整还原之后该做什么",
+   "category": "过渡",
+   "difficulty": 2,
+   "duration": "8 分钟",
+   "order": 8,
+   "tags": [
+    "心态",
+    "进阶",
+    "提速"
+   ],
+   "id": "a08-after-first",
+   "body": "完成首次还原值得庆祝，但真正的训练才刚开始。\n\n## 三个方向\n1. **稳定**：连续 10 次不看公式走完七步\n2. **提速**：把每步公式做顺，目标单次 < 1:30\n3. **进阶**：了解 CFOP，为未来提速打基础\n\n## 不要急着背全公式\n很多新手在\"会还原\"后立刻去背 57 个 OLL，结果越背越乱。建议先把层先法做到 1 分钟以内，再自然过渡到 CFOP。\n\n## 建立你的档案\n在\"我的档案\"里记录每次成绩、方法和感受，训练才有迹可循。",
+   "html": "<p>完成首次还原值得庆祝，但真正的训练才刚开始。</p>\n<h2 id=\"_1\">三个方向</h2>\n<ol>\n<li><strong>稳定</strong>：连续 10 次不看公式走完七步</li>\n<li><strong>提速</strong>：把每步公式做顺，目标单次 &lt; 1:30</li>\n<li><strong>进阶</strong>：了解 CFOP，为未来提速打基础</li>\n</ol>\n<h2 id=\"_2\">不要急着背全公式</h2>\n<p>很多新手在\"会还原\"后立刻去背 57 个 OLL，结果越背越乱。建议先把层先法做到 1 分钟以内，再自然过渡到 CFOP。</p>\n<h2 id=\"_3\">建立你的档案</h2>\n<p>在\"我的档案\"里记录每次成绩、方法和感受，训练才有迹可循。</p>"
+  },
+  {
+   "title": "手法（Fingertricks）基础",
+   "category": "提速",
+   "difficulty": 3,
+   "duration": "20 分钟",
+   "order": 9,
+   "tags": [
+    "手法",
+    "提速",
+    "fingertricks"
+   ],
+   "id": "a09-fingertricks",
+   "body": "提速的关键不是手快，而是**用对手指、少转动手腕**。\n\n## 核心手法\n- **U / U'**：用食指推、无名指勾，而非整只手转\n- **R / R'**：食指推 R，中指/无名指拉 R'\n- **F / F'**：食指推 F，拇指勾 F'\n- **双指拨 U2**：食指+无名指连续拨\n\n## 练习方法\n- 慢速、夸张地做，确保每一下都\"弹\"而不是\"拧\"\n- 用 `R U R' U'` 循环练习（著名的 T 排列练习）\n- 录视频回看手腕是否晃动\n\n## 达标\nL3 关卡要求：底层十字稳定做到 2 秒内，整体均速 < 1:30。",
+   "html": "<p>提速的关键不是手快，而是<strong>用对手指、少转动手腕</strong>。</p>\n<h2 id=\"_1\">核心手法</h2>\n<ul>\n<li><strong>U / U'</strong>：用食指推、无名指勾，而非整只手转</li>\n<li><strong>R / R'</strong>：食指推 R，中指/无名指拉 R'</li>\n<li><strong>F / F'</strong>：食指推 F，拇指勾 F'</li>\n<li><strong>双指拨 U2</strong>：食指+无名指连续拨</li>\n</ul>\n<h2 id=\"_2\">练习方法</h2>\n<ul>\n<li>慢速、夸张地做，确保每一下都\"弹\"而不是\"拧\"</li>\n<li>用 <code>R U R' U'</code> 循环练习（著名的 T 排列练习）</li>\n<li>录视频回看手腕是否晃动</li>\n</ul>\n<h2 id=\"_3\">达标</h2>\n<p>L3 关卡要求：底层十字稳定做到 2 秒内，整体均速 &lt; 1:30。</p>"
+  },
+  {
+   "title": "计时、复盘与目标设定",
+   "category": "提速",
+   "difficulty": 2,
+   "duration": "12 分钟",
+   "order": 10,
+   "tags": [
+    "计时",
+    "复盘",
+    "目标"
+   ],
+   "id": "a10-timer-review",
+   "body": "没有计时就没有进步。专业选手看的是 **Ao5 / Ao12**（最近 5 / 12 次去掉最好最差的平均）。\n\n## 工具\n- 在线：cstimer.net（免费、功能强）\n- 实体：计时器 + 打乱公式（标准 WCA 打乱）\n\n## 复盘三问\n1. 这次卡在哪一步？（十字？F2L？PLL？）\n2. 是公式不熟还是手法慢？\n3. 下一步专门练什么？\n\n## 设定目标\n用 SMART 原则：例如\"两周内层先法均速从 1:50 降到 1:20\"。把它写进档案。\n\n> 案例库里有\"用 cstimer 计时与统计\"和\"职业选手训练节奏\"可参考。",
+   "html": "<p>没有计时就没有进步。专业选手看的是 <strong>Ao5 / Ao12</strong>（最近 5 / 12 次去掉最好最差的平均）。</p>\n<h2 id=\"_1\">工具</h2>\n<ul>\n<li>在线：cstimer.net（免费、功能强）</li>\n<li>实体：计时器 + 打乱公式（标准 WCA 打乱）</li>\n</ul>\n<h2 id=\"_2\">复盘三问</h2>\n<ol>\n<li>这次卡在哪一步？（十字？F2L？PLL？）</li>\n<li>是公式不熟还是手法慢？</li>\n<li>下一步专门练什么？</li>\n</ol>\n<h2 id=\"_3\">设定目标</h2>\n<p>用 SMART 原则：例如\"两周内层先法均速从 1:50 降到 1:20\"。把它写进档案。</p>\n<blockquote>\n<p>案例库里有\"用 cstimer 计时与统计\"和\"职业选手训练节奏\"可参考。</p>\n</blockquote>"
+  },
+  {
+   "title": "CFOP 概览与 Cross",
+   "category": "进阶",
+   "difficulty": 4,
+   "duration": "18 分钟",
+   "order": 11,
+   "tags": [
+    "CFOP",
+    "进阶",
+    "Cross"
+   ],
+   "id": "a11-cfop-overview",
+   "body": "CFOP 是当今最主流的速拧方法，由四大步骤组成：\n- **C**ross 十字\n- **F**irst 2 **L**ayers 前两层\n- **O**rientation of **L**ast **L**ayer 顶层朝向\n- **P**ermutation of **L**ast **L**ayer 顶层排列\n\n## 为什么 CFOP 快\n- 减少\"逐块找位置\"的思考\n- F2L 把第一、二层一起做，省步骤\n- OLL/PLL 公式化，可练到极快\n\n## 从 Cross 开始\nCFOP 的 Cross 与层先法十字类似，但要求**在观察阶段就规划好 4 条棱的落点**，开拧即做。\n\n> L4 关卡目标：理解 F2L 原理，均速 < 1:00。",
+   "html": "<p>CFOP 是当今最主流的速拧方法，由四大步骤组成：<br />\n- <strong>C</strong>ross 十字<br />\n- <strong>F</strong>irst 2 <strong>L</strong>ayers 前两层<br />\n- <strong>O</strong>rientation of <strong>L</strong>ast <strong>L</strong>ayer 顶层朝向<br />\n- <strong>P</strong>ermutation of <strong>L</strong>ast <strong>L</strong>ayer 顶层排列</p>\n<h2 id=\"cfop\">为什么 CFOP 快</h2>\n<ul>\n<li>减少\"逐块找位置\"的思考</li>\n<li>F2L 把第一、二层一起做，省步骤</li>\n<li>OLL/PLL 公式化，可练到极快</li>\n</ul>\n<h2 id=\"cross\">从 Cross 开始</h2>\n<p>CFOP 的 Cross 与层先法十字类似，但要求<strong>在观察阶段就规划好 4 条棱的落点</strong>，开拧即做。</p>\n<blockquote>\n<p>L4 关卡目标：理解 F2L 原理，均速 &lt; 1:00。</p>\n</blockquote>"
+  },
+  {
+   "title": "F2L 原理入门",
+   "category": "进阶",
+   "difficulty": 4,
+   "duration": "22 分钟",
+   "order": 12,
+   "tags": [
+    "CFOP",
+    "F2L",
+    "进阶"
+   ],
+   "id": "a12-f2l",
+   "body": "F2L（First Two Layers）把\"角块+棱块\"成对插入，一次完成前两层。\n\n## 基本思路\n1. 在顶层找到一对属于同一空位的角块和棱块\n2. 把它们配成\"对\"，再一起插入底部空位\n\n## 三种常见情况\n- 角棱已配对：直接插入\n- 角棱分离：先制造配对\n- 角棱在错误位置：用 `U` 调整到可插入形态\n\n## 建议\n先**不背公式**，用直觉插入；熟练后再学标准 F2L 算法提速。网上有大量 F2L 可视化练习工具。\n\n> 提示：F2L 是 CFOP 里最\"烧脑\"也最值得练的部分，占总步数一半以上。",
+   "html": "<p>F2L（First Two Layers）把\"角块+棱块\"成对插入，一次完成前两层。</p>\n<h2 id=\"_1\">基本思路</h2>\n<ol>\n<li>在顶层找到一对属于同一空位的角块和棱块</li>\n<li>把它们配成\"对\"，再一起插入底部空位</li>\n</ol>\n<h2 id=\"_2\">三种常见情况</h2>\n<ul>\n<li>角棱已配对：直接插入</li>\n<li>角棱分离：先制造配对</li>\n<li>角棱在错误位置：用 <code>U</code> 调整到可插入形态</li>\n</ul>\n<h2 id=\"_3\">建议</h2>\n<p>先<strong>不背公式</strong>，用直觉插入；熟练后再学标准 F2L 算法提速。网上有大量 F2L 可视化练习工具。</p>\n<blockquote>\n<p>提示：F2L 是 CFOP 里最\"烧脑\"也最值得练的部分，占总步数一半以上。</p>\n</blockquote>"
+  },
+  {
+   "title": "OLL 与 PLL 入门",
+   "category": "进阶",
+   "difficulty": 4,
+   "duration": "20 分钟",
+   "order": 13,
+   "tags": [
+    "CFOP",
+    "OLL",
+    "PLL",
+    "进阶"
+   ],
+   "id": "a13-oll-pll",
+   "body": "完成 F2L 后，顶层需要：先让黄色朝上（OLL），再排好位置（PLL）。\n\n## OLL（57 个公式）\n新手不必全背，先学 **2-look OLL**：\n- 先让顶层十字（6 个公式）\n- 再翻其余（7 个公式）\n这样只用 2 步、约 13 个公式即可覆盖全部情况。\n\n## PLL（21 个公式）\n同样可先学 **2-look PLL**：\n- 先排角（2 个公式）\n- 再排棱（2 个公式）\n\n## 达标\nL5 关卡目标：掌握 2-look OLL/PLL，均速 < 40 秒。\n\n> 完整 57 OLL + 21 PLL 是长期工程，循序渐进即可。",
+   "html": "<p>完成 F2L 后，顶层需要：先让黄色朝上（OLL），再排好位置（PLL）。</p>\n<h2 id=\"oll57\">OLL（57 个公式）</h2>\n<p>新手不必全背，先学 <strong>2-look OLL</strong>：<br />\n- 先让顶层十字（6 个公式）<br />\n- 再翻其余（7 个公式）<br />\n这样只用 2 步、约 13 个公式即可覆盖全部情况。</p>\n<h2 id=\"pll21\">PLL（21 个公式）</h2>\n<p>同样可先学 <strong>2-look PLL</strong>：<br />\n- 先排角（2 个公式）<br />\n- 再排棱（2 个公式）</p>\n<h2 id=\"_1\">达标</h2>\n<p>L5 关卡目标：掌握 2-look OLL/PLL，均速 &lt; 40 秒。</p>\n<blockquote>\n<p>完整 57 OLL + 21 PLL 是长期工程，循序渐进即可。</p>\n</blockquote>"
+  },
+  {
+   "title": "盲拧与异形魔方简介",
+   "category": "专题",
+   "difficulty": 5,
+   "duration": "15 分钟",
+   "order": 14,
+   "tags": [
+    "盲拧",
+    "异形",
+    "专题"
+   ],
+   "id": "a14-blind-other",
+   "body": "当你三阶稳进 30 秒，可以探索更广阔的世界。\n\n## 盲拧（Blindfolded）\n靠记忆+编码一次性完成。最经典入门法：**Old Pochmann**（仅用 R 和 L 的换棱算法）。盲拧锻炼记忆力与空间想象，非常硬核。\n\n## 异形魔方\n- **二阶（2×2）**：无中心无棱，本质是三阶的角块\n- **四阶（4×4）**：降阶法——先拼中心再拼棱，最后当三阶解\n- **金字塔（Pyraminx）/斜转（Skewb）**：转动逻辑完全不同，入门极快\n- **五阶及以上**：高阶降阶\n\n## 建议\nL6 关卡鼓励按兴趣选一个方向深入。案例库有各类玩法详解。",
+   "html": "<p>当你三阶稳进 30 秒，可以探索更广阔的世界。</p>\n<h2 id=\"blindfolded\">盲拧（Blindfolded）</h2>\n<p>靠记忆+编码一次性完成。最经典入门法：<strong>Old Pochmann</strong>（仅用 R 和 L 的换棱算法）。盲拧锻炼记忆力与空间想象，非常硬核。</p>\n<h2 id=\"_1\">异形魔方</h2>\n<ul>\n<li><strong>二阶（2×2）</strong>：无中心无棱，本质是三阶的角块</li>\n<li><strong>四阶（4×4）</strong>：降阶法——先拼中心再拼棱，最后当三阶解</li>\n<li><strong>金字塔（Pyraminx）/斜转（Skewb）</strong>：转动逻辑完全不同，入门极快</li>\n<li><strong>五阶及以上</strong>：高阶降阶</li>\n</ul>\n<h2 id=\"_2\">建议</h2>\n<p>L6 关卡鼓励按兴趣选一个方向深入。案例库有各类玩法详解。</p>"
+  },
+  {
+   "title": "WCA 比赛规则入门",
+   "category": "专题",
+   "difficulty": 3,
+   "duration": "14 分钟",
+   "order": 15,
+   "tags": [
+    "WCA",
+    "比赛",
+    "规则",
+    "专题"
+   ],
+   "id": "a15-wca-rules",
+   "body": "想参加比赛？先了解世界魔方协会（WCA）的基本规则。\n\n## 比赛流程\n- 每轮有若干**尝试（attempt）**，取最好单次和平均（Ao5）\n- 裁判判罚：如转动中松手、超时（通常 10 分钟）、违规观察\n- 观察时间：标准 15 秒，需先归位再开始\n\n## 主要项目\n三阶、二阶、四阶、五阶、三阶单手、三阶盲拧、三阶最少步（FMC）、金字塔、斜转、魔表等共 **17 个项目**。\n\n## 如何参赛\n在 WCA 官网查你所在城市的赛事，免费注册即可。第一次参赛建议从三阶开始。\n\n> 案例库有\"WCA 2025 世锦赛\"等真实赛事可参考。",
+   "html": "<p>想参加比赛？先了解世界魔方协会（WCA）的基本规则。</p>\n<h2 id=\"_1\">比赛流程</h2>\n<ul>\n<li>每轮有若干<strong>尝试（attempt）</strong>，取最好单次和平均（Ao5）</li>\n<li>裁判判罚：如转动中松手、超时（通常 10 分钟）、违规观察</li>\n<li>观察时间：标准 15 秒，需先归位再开始</li>\n</ul>\n<h2 id=\"_2\">主要项目</h2>\n<p>三阶、二阶、四阶、五阶、三阶单手、三阶盲拧、三阶最少步（FMC）、金字塔、斜转、魔表等共 <strong>17 个项目</strong>。</p>\n<h2 id=\"_3\">如何参赛</h2>\n<p>在 WCA 官网查你所在城市的赛事，免费注册即可。第一次参赛建议从三阶开始。</p>\n<blockquote>\n<p>案例库有\"WCA 2025 世锦赛\"等真实赛事可参考。</p>\n</blockquote>"
+  },
+  {
+   "title": "速拧魔方选购指南",
+   "category": "专题",
+   "difficulty": 2,
+   "duration": "12 分钟",
+   "order": 16,
+   "tags": [
+    "器材",
+    "选购",
+    "专题"
+   ],
+   "id": "a16-buy-guide",
+   "body": "选对魔方，训练事半功倍。\n\n## 核心参数\n- **磁力（Magnetic）**：块内有磁片，定位更稳，速拧首选\n- **尺寸**：三阶常见 54–56mm，手大选 56，手小选 54\n- **调校**：现代魔方多支持张力/磁力调节\n- **磁感等级**：弱磁灵活、强磁稳定，按手感选\n\n## 主流品牌\n- **GAN**：高端、手感顺滑、价格高\n- **MoYu（魔域）**：性价比高、型号多\n- **QiYi（奇艺）**：入门友好、价格亲民\n\n## 新手建议\n第一颗选 50–80 元带磁的三阶（如 MoYu RS3 M / GAN 356 M），足够用到进 15 秒。\n\n> 案例库有\"主流品牌对比\"与\"魔方调校\"可深入阅读。",
+   "html": "<p>选对魔方，训练事半功倍。</p>\n<h2 id=\"_1\">核心参数</h2>\n<ul>\n<li><strong>磁力（Magnetic）</strong>：块内有磁片，定位更稳，速拧首选</li>\n<li><strong>尺寸</strong>：三阶常见 54–56mm，手大选 56，手小选 54</li>\n<li><strong>调校</strong>：现代魔方多支持张力/磁力调节</li>\n<li><strong>磁感等级</strong>：弱磁灵活、强磁稳定，按手感选</li>\n</ul>\n<h2 id=\"_2\">主流品牌</h2>\n<ul>\n<li><strong>GAN</strong>：高端、手感顺滑、价格高</li>\n<li><strong>MoYu（魔域）</strong>：性价比高、型号多</li>\n<li><strong>QiYi（奇艺）</strong>：入门友好、价格亲民</li>\n</ul>\n<h2 id=\"_3\">新手建议</h2>\n<p>第一颗选 50–80 元带磁的三阶（如 MoYu RS3 M / GAN 356 M），足够用到进 15 秒。</p>\n<blockquote>\n<p>案例库有\"主流品牌对比\"与\"魔方调校\"可深入阅读。</p>\n</blockquote>"
+  }
+ ],
+ "levels": [
+  {
+   "title": "L0 萌新起步：认识与记号",
+   "level": "L0",
+   "order": 0,
+   "goal": "认识魔方结构、标准配色，掌握基础转动记号",
+   "target": "能不犹豫地做出 R R' R2 U U' U2 L L' F F' 等基础转动；说出六面相对配色",
+   "knowledge": [
+    "三阶结构：6 中心 / 12 棱 / 8 角",
+    "相对配色：白↔黄、红↔橙、蓝↔绿",
+    "六个面记号与顺/逆/180° 表示"
+   ],
+   "diagrams": [
+    "notation-demo"
+   ],
+   "tasks": [
+    "阅读《认识魔方》《标准转动记号》",
+    "在魔方上慢速完成所有基础记号转动各 5 次"
+   ],
+   "recommend": [
+    "a01-know-cube",
+    "a02-notation"
+   ],
+   "id": "L0",
+   "body": "欢迎来到魔方训练营！L0 是一切的起点。\n\n## 本关任务\n1. 搞清楚魔方由哪些块组成，记住中心块不动。\n2. 记住相对配色（白↔黄、红↔橙、蓝↔绿）。\n3. 把六个面记号（U/D/L/R/F/B）练到闭眼能做。\n\n## 为什么先练记号\n记号是后面所有公式的\"语言\"。前期多花 20 分钟在记号上，未来背公式能省好几小时。\n\n## 完成后\n在\"我的档案\"里把 L0 标记为已完成，进入 L1 拼底层十字。",
+   "category": "",
+   "tags": [],
+   "html": "<p>欢迎来到魔方训练营！L0 是一切的起点。</p>\n<h2 id=\"_1\">本关任务</h2>\n<ol>\n<li>搞清楚魔方由哪些块组成，记住中心块不动。</li>\n<li>记住相对配色（白↔黄、红↔橙、蓝↔绿）。</li>\n<li>把六个面记号（U/D/L/R/F/B）练到闭眼能做。</li>\n</ol>\n<h2 id=\"_2\">为什么先练记号</h2>\n<p>记号是后面所有公式的\"语言\"。前期多花 20 分钟在记号上，未来背公式能省好几小时。</p>\n<h2 id=\"_3\">完成后</h2>\n<p>在\"我的档案\"里把 L0 标记为已完成，进入 L1 拼底层十字。</p>"
+  },
+  {
+   "title": "L1 层先·底层两层",
+   "level": "L1",
+   "order": 1,
+   "goal": "完成底层十字 + 底层角块 + 中层棱块，还原前两层",
+   "target": "稳定拼出白面十字（侧边对齐）并还原前两层，不卡壳",
+   "knowledge": [
+    "底层十字的对齐判断",
+    "角块\"挖-塞\"思路",
+    "中层棱块左右公式"
+   ],
+   "tasks": [
+    "练习底层十字至 30 秒内对齐",
+    "连续 5 次完整还原前两层"
+   ],
+   "recommend": [
+    "a04-cross",
+    "a05-f2l-lbl"
+   ],
+   "id": "L1",
+   "body": "L1 进入真正的还原：把白色那一面（底层）和中间一层做好。\n\n## 底层十字\n白色朝上，拼出十字并让侧边颜色对齐同色中心。\n\n## 底层角块 + 中层棱块\n用\"挖出来再塞回去\"的思路处理角块；中层棱块记两个方向公式即可。\n\n## 本关陷阱\n- 只盯白色忘了侧边对齐 → 十字后还要返工\n- 角块公式死记 → 理解\"空位在哪、块往哪走\"更重要\n\n完成后进入 L2，挑战完整还原！",
+   "category": "",
+   "tags": [],
+   "html": "<p>L1 进入真正的还原：把白色那一面（底层）和中间一层做好。</p>\n<h2 id=\"_1\">底层十字</h2>\n<p>白色朝上，拼出十字并让侧边颜色对齐同色中心。</p>\n<h2 id=\"_2\">底层角块 + 中层棱块</h2>\n<p>用\"挖出来再塞回去\"的思路处理角块；中层棱块记两个方向公式即可。</p>\n<h2 id=\"_3\">本关陷阱</h2>\n<ul>\n<li>只盯白色忘了侧边对齐 → 十字后还要返工</li>\n<li>角块公式死记 → 理解\"空位在哪、块往哪走\"更重要</li>\n</ul>\n<p>完成后进入 L2，挑战完整还原！</p>"
+  },
+  {
+   "title": "L2 层先·完成首次还原",
+   "level": "L2",
+   "order": 2,
+   "goal": "走完七步，完成人生第一次完整还原",
+   "target": "任意时间内完成六面单色还原",
+   "knowledge": [
+    "顶层十字与翻色（小鱼公式）",
+    "顶层角块 / 棱块归位"
+   ],
+   "diagrams": [
+    "fish-sune"
+   ],
+   "tasks": [
+    "完整走完七步还原一次",
+    "把这次成绩记入\"我的档案\""
+   ],
+   "recommend": [
+    "a03-lbl-overview",
+    "a06-OLL-cross",
+    "a07-PLL-lbl"
+   ],
+   "id": "L2",
+   "body": "这是最有成就感的一关——第一次把六面都还原！\n\n## 七步回顾\n十字 → 底层角 → 中层棱 → 顶层十字 → 翻色 → 角归位 → 棱归位。\n\n## 关键公式\n- 翻色\"小鱼\"：`R U R' U R U2 R'`\n- 棱归位：`R U' R U R U R U' R' U' R2`\n\n## 第一次之后\n别急着背全公式。先稳定走完七步 10 次，再进入提速（L3）。\n\n> 把你的第一次还原时间写进档案，那是你进步故事的开始。",
+   "category": "",
+   "tags": [],
+   "html": "<p>这是最有成就感的一关——第一次把六面都还原！</p>\n<h2 id=\"_1\">七步回顾</h2>\n<p>十字 → 底层角 → 中层棱 → 顶层十字 → 翻色 → 角归位 → 棱归位。</p>\n<h2 id=\"_2\">关键公式</h2>\n<ul>\n<li>翻色\"小鱼\"：<code>R U R' U R U2 R'</code></li>\n<li>棱归位：<code>R U' R U R U R U' R' U' R2</code></li>\n</ul>\n<h2 id=\"_3\">第一次之后</h2>\n<p>别急着背全公式。先稳定走完七步 10 次，再进入提速（L3）。</p>\n<blockquote>\n<p>把你的第一次还原时间写进档案，那是你进步故事的开始。</p>\n</blockquote>"
+  },
+  {
+   "title": "L3 提速入门：手法与稳定",
+   "level": "L3",
+   "order": 3,
+   "goal": "优化手法、稳定底层十字，把层先法均速压到 1:30 内",
+   "target": "层先法均速（Ao5）< 90 秒，十字稳定 5 秒内",
+   "knowledge": [
+    "食指/无名指拨 U 层",
+    "R/F 推拉手法",
+    "计时与 Ao5 概念"
+   ],
+   "tasks": [
+    "用 cstimer 计时，记录 20 次成绩",
+    "专练十字至 5 秒内"
+   ],
+   "recommend": [
+    "a08-after-first",
+    "a09-fingertricks",
+    "a10-timer-review",
+    "c16-cstimer"
+   ],
+   "id": "L3",
+   "body": "会还原只是起点，提速才是乐趣所在。\n\n## 手法优先\n手快不等于拧得快。先练 `R U R' U'` 循环，让 U 层用食指/无名指\"弹\"出来。\n\n## 用数据驱动\n每次训练都用计时器，关注 Ao5（去头去尾平均）。目标：层先法 Ao5 < 90 秒。\n\n## 常见瓶颈\n- 十字慢 → 练习在观察阶段规划 4 条棱\n- 顶层公式卡 → 慢做、分段练\n\n完成后进入 L4，了解 CFOP。",
+   "category": "",
+   "tags": [],
+   "html": "<p>会还原只是起点，提速才是乐趣所在。</p>\n<h2 id=\"_1\">手法优先</h2>\n<p>手快不等于拧得快。先练 <code>R U R' U'</code> 循环，让 U 层用食指/无名指\"弹\"出来。</p>\n<h2 id=\"_2\">用数据驱动</h2>\n<p>每次训练都用计时器，关注 Ao5（去头去尾平均）。目标：层先法 Ao5 &lt; 90 秒。</p>\n<h2 id=\"_3\">常见瓶颈</h2>\n<ul>\n<li>十字慢 → 练习在观察阶段规划 4 条棱</li>\n<li>顶层公式卡 → 慢做、分段练</li>\n</ul>\n<p>完成后进入 L4，了解 CFOP。</p>"
+  },
+  {
+   "title": "L4 CFOP·Cross 与 F2L",
+   "level": "L4",
+   "order": 4,
+   "goal": "理解 CFOP 框架，掌握 Cross 与 F2L 原理，均速 < 1:00",
+   "target": "用 CFOP 思路（或混合）完成，Ao5 < 60 秒",
+   "knowledge": [
+    "CFOP 四步结构",
+    "Cross 观察规划",
+    "F2L 角棱配对插入"
+   ],
+   "tasks": [
+    "学习 F2L 直觉插对（不背公式版）",
+    "把 Cross 压到 3 秒内"
+   ],
+   "recommend": [
+    "a11-cfop-overview",
+    "a12-f2l",
+    "c01-cfop"
+   ],
+   "id": "L4",
+   "body": "CFOP 是速拧主流方法。L4 先吃下 Cross 与 F2L 两块硬骨头。\n\n## Cross\n与层先法十字类似，但要求**开拧前就规划好**四条棱落点，争取 3 秒内完成。\n\n## F2L\n把角块与棱块配对后一起插入。先凭直觉（不背公式），理解\"配对—插入\"的循环。\n\n## 本关心态\nF2L 初期可能比层先法还慢，这是正常的\"转型期\"。坚持 1–2 周，会明显变快。",
+   "category": "",
+   "tags": [],
+   "html": "<p>CFOP 是速拧主流方法。L4 先吃下 Cross 与 F2L 两块硬骨头。</p>\n<h2 id=\"cross\">Cross</h2>\n<p>与层先法十字类似，但要求<strong>开拧前就规划好</strong>四条棱落点，争取 3 秒内完成。</p>\n<h2 id=\"f2l\">F2L</h2>\n<p>把角块与棱块配对后一起插入。先凭直觉（不背公式），理解\"配对—插入\"的循环。</p>\n<h2 id=\"_1\">本关心态</h2>\n<p>F2L 初期可能比层先法还慢，这是正常的\"转型期\"。坚持 1–2 周，会明显变快。</p>"
+  },
+  {
+   "title": "L5 CFOP·OLL 与 PLL",
+   "level": "L5",
+   "order": 5,
+   "goal": "掌握 2-look OLL/PLL，均速 < 40 秒",
+   "target": "Ao5 < 40 秒，顶层用 2-look 法稳定完成",
+   "knowledge": [
+    "2-look OLL（十字+翻色，约13公式）",
+    "2-look PLL（角+棱，约4公式）"
+   ],
+   "tasks": [
+    "背熟 2-look OLL/PLL",
+    "把 PLL 练到肌肉记忆"
+   ],
+   "recommend": [
+    "a13-oll-pll",
+    "c01-cfop"
+   ],
+   "id": "L5",
+   "body": "L5 补齐 CFOP 最后两段：OLL（朝向）与 PLL（排列）。\n\n## 2-look 是捷径\n不必一上来背 57+21 个公式。先学 2-look：\n- OLL：先十字（6）再翻色（7）\n- PLL：先角（2）再棱（2）\n\n## 之后\n当你 2-look 稳了，再逐步补全完整 OLL/PLL。L5 达标线：Ao5 < 40 秒。",
+   "category": "",
+   "tags": [],
+   "html": "<p>L5 补齐 CFOP 最后两段：OLL（朝向）与 PLL（排列）。</p>\n<h2 id=\"2-look\">2-look 是捷径</h2>\n<p>不必一上来背 57+21 个公式。先学 2-look：<br />\n- OLL：先十字（6）再翻色（7）<br />\n- PLL：先角（2）再棱（2）</p>\n<h2 id=\"_1\">之后</h2>\n<p>当你 2-look 稳了，再逐步补全完整 OLL/PLL。L5 达标线：Ao5 &lt; 40 秒。</p>"
+  },
+  {
+   "title": "L6 专项突破：盲拧 / 异形 / 比赛",
+   "level": "L6",
+   "order": 6,
+   "goal": "按兴趣选择专项深入，或备战首场比赛",
+   "target": "完成至少一个专项的入门，或报名一次 WCA 赛事",
+   "knowledge": [
+    "盲拧 Old Pochmann 入门",
+    "四阶降阶法 / 二阶 / 异形",
+    "WCA 参赛流程"
+   ],
+   "tasks": [
+    "任选：盲拧一次 / 还原四阶 / 报名比赛",
+    "在档案记录专项成果"
+   ],
+   "recommend": [
+    "a14-blind-other",
+    "a15-wca-rules",
+    "c05-wc2025",
+    "c24-blind",
+    "c22-4x4"
+   ],
+   "id": "L6",
+   "body": "恭喜走到专项阶段！这里没有统一终点，按兴趣选路。\n\n## 可选方向\n- **盲拧**：练记忆与编码（Old Pochmann）\n- **高阶/异形**：四阶降阶、二阶、金字塔\n- **比赛**：报名人生第一场 WCA 赛事\n- **极致提速**：补全 OLL/PLL，冲击 sub-20 / sub-15\n\n## 关于\"训练营\"的意义\n到这里你已经拥有自学任何魔方玩法的能力。案例库里大量真实选手与赛事，正是你继续前进的燃料。\n\n> 把你的专项目标写进档案，训练营会一直陪你记录成长。",
+   "category": "",
+   "tags": [],
+   "html": "<p>恭喜走到专项阶段！这里没有统一终点，按兴趣选路。</p>\n<h2 id=\"_1\">可选方向</h2>\n<ul>\n<li><strong>盲拧</strong>：练记忆与编码（Old Pochmann）</li>\n<li><strong>高阶/异形</strong>：四阶降阶、二阶、金字塔</li>\n<li><strong>比赛</strong>：报名人生第一场 WCA 赛事</li>\n<li><strong>极致提速</strong>：补全 OLL/PLL，冲击 sub-20 / sub-15</li>\n</ul>\n<h2 id=\"_2\">关于\"训练营\"的意义</h2>\n<p>到这里你已经拥有自学任何魔方玩法的能力。案例库里大量真实选手与赛事，正是你继续前进的燃料。</p>\n<blockquote>\n<p>把你的专项目标写进档案，训练营会一直陪你记录成长。</p>\n</blockquote>"
+  }
+ ],
+ "cases": [
+  {
+   "title": "方法案例｜CFOP：最主流的速拧方法",
+   "category": "方法",
+   "source": "https://www.speedsolving.com/wiki/index.php?title=CFOP_method",
+   "source_name": "Speedsolving Wiki",
+   "order": 1,
+   "tags": [
+    "CFOP",
+    "方法",
+    "速拧"
+   ],
+   "summary": "Cross-F2L-OLL-PLL 四步法，当今选手首选，平衡易学与上限。",
+   "id": "c01-cfop",
+   "body": "CFOP 由 Jessica Fridrich 等人系统化推广，是当今最流行的速拧方法。\n\n## 四步\n1. **Cross**：底面拼十字\n2. **F2L**：前两层一起做（角棱配对插入）\n3. **OLL**：顶层翻色（57 公式，可先学 2-look）\n4. **PLL**：顶层排列（21 公式，可先学 2-look）\n\n## 优点\n- 资料最多、社区最大\n- 易从层先法过渡\n- 上限极高，世界顶尖几乎都用它\n\n## 缺点\n- 完整 OLL/PLL 公式量大\n- 依赖手法与观察\n\n> 适合目标\"既想快上手又想冲极限\"的玩家。案例库另见 Roux、ZZ 对比。",
+   "html": "<p>CFOP 由 Jessica Fridrich 等人系统化推广，是当今最流行的速拧方法。</p>\n<h2 id=\"_1\">四步</h2>\n<ol>\n<li><strong>Cross</strong>：底面拼十字</li>\n<li><strong>F2L</strong>：前两层一起做（角棱配对插入）</li>\n<li><strong>OLL</strong>：顶层翻色（57 公式，可先学 2-look）</li>\n<li><strong>PLL</strong>：顶层排列（21 公式，可先学 2-look）</li>\n</ol>\n<h2 id=\"_2\">优点</h2>\n<ul>\n<li>资料最多、社区最大</li>\n<li>易从层先法过渡</li>\n<li>上限极高，世界顶尖几乎都用它</li>\n</ul>\n<h2 id=\"_3\">缺点</h2>\n<ul>\n<li>完整 OLL/PLL 公式量大</li>\n<li>依赖手法与观察</li>\n</ul>\n<blockquote>\n<p>适合目标\"既想快上手又想冲极限\"的玩家。案例库另见 Roux、ZZ 对比。</p>\n</blockquote>"
+  },
+  {
+   "title": "方法案例｜Roux：少步数、适合单手",
+   "category": "方法",
+   "source": "https://www.speedsolving.com/wiki/index.php?title=Roux_method",
+   "source_name": "Speedsolving Wiki",
+   "order": 2,
+   "tags": [
+    "Roux",
+    "方法",
+    "单手"
+   ],
+   "summary": "块构建思路，步数少、转体少，单手（OH）热门。",
+   "id": "c02-roux",
+   "body": "Roux 由 Gilles Roux 提出，采用\"块构建（block building）\"而非逐层。\n\n## 思路\n1. 左侧建 1×2×3 块（CMLL 处理角）\n2. 右侧建对称块\n3. 最后用 LSE（最后六棱）收尾\n\n## 优点\n- 步数通常比 CFOP 少\n- 转体极少，非常适合单手（OH）\n- 思考密度高、机械重复少\n\n## 缺点\n- 入门比 CFOP 抽象\n- 资料相对少\n\n> 不少顶尖单手选手使用 Roux。想走 OH 路线的可重点了解。",
+   "html": "<p>Roux 由 Gilles Roux 提出，采用\"块构建（block building）\"而非逐层。</p>\n<h2 id=\"_1\">思路</h2>\n<ol>\n<li>左侧建 1×2×3 块（CMLL 处理角）</li>\n<li>右侧建对称块</li>\n<li>最后用 LSE（最后六棱）收尾</li>\n</ol>\n<h2 id=\"_2\">优点</h2>\n<ul>\n<li>步数通常比 CFOP 少</li>\n<li>转体极少，非常适合单手（OH）</li>\n<li>思考密度高、机械重复少</li>\n</ul>\n<h2 id=\"_3\">缺点</h2>\n<ul>\n<li>入门比 CFOP 抽象</li>\n<li>资料相对少</li>\n</ul>\n<blockquote>\n<p>不少顶尖单手选手使用 Roux。想走 OH 路线的可重点了解。</p>\n</blockquote>"
+  },
+  {
+   "title": "方法案例｜ZZ：转体最少、利于单手",
+   "category": "方法",
+   "source": "https://www.speedsolving.com/wiki/index.php?title=ZZ_method",
+   "source_name": "Speedsolving Wiki",
+   "order": 3,
+   "tags": [
+    "ZZ",
+    "方法",
+    "单手"
+   ],
+   "summary": "先定向所有棱，全程无需转体，单手友好。",
+   "id": "c03-zz",
+   "body": "ZZ（Zbigniew Zborowski）方法以\"先定向棱块\"著称。\n\n## 思路\n1. **EOLine**：定向所有棱 + 一条中线\n2. **F2L**：在已定向基础上插入（无需转体）\n3. **LL**：朝向+排列\n\n## 优点\n- 后半程几乎不转体，单手极佳\n- 部分情况可触发 ZBLL 等高级跳过\n\n## 缺点\n- EOLine 前期学习曲线陡\n- 整体生态比 CFOP 小\n\n> 与 Roux 同属\"少转体\"流派，适合追求极致手感的玩家。",
+   "html": "<p>ZZ（Zbigniew Zborowski）方法以\"先定向棱块\"著称。</p>\n<h2 id=\"_1\">思路</h2>\n<ol>\n<li><strong>EOLine</strong>：定向所有棱 + 一条中线</li>\n<li><strong>F2L</strong>：在已定向基础上插入（无需转体）</li>\n<li><strong>LL</strong>：朝向+排列</li>\n</ol>\n<h2 id=\"_2\">优点</h2>\n<ul>\n<li>后半程几乎不转体，单手极佳</li>\n<li>部分情况可触发 ZBLL 等高级跳过</li>\n</ul>\n<h2 id=\"_3\">缺点</h2>\n<ul>\n<li>EOLine 前期学习曲线陡</li>\n<li>整体生态比 CFOP 小</li>\n</ul>\n<blockquote>\n<p>与 Roux 同属\"少转体\"流派，适合追求极致手感的玩家。</p>\n</blockquote>"
+  },
+  {
+   "title": "方法案例｜层先法（LBL）：新手的起点",
+   "category": "方法",
+   "source": "https://en.wikipedia.org/wiki/Optimal_solutions_for_the_Rubik%27s_Cube",
+   "source_name": "Wikipedia",
+   "order": 4,
+   "tags": [
+    "层先法",
+    "LBL",
+    "入门"
+   ],
+   "summary": "七步逐层还原，公式少、直观，是所有进阶方法的基础。",
+   "id": "c04-lbl",
+   "body": "层先法（Layer By Layer）把还原拆成七步：十字、底层角、中层棱、顶层十字、翻色、角归位、棱归位。\n\n## 为什么重要\n- 几乎每个教程都从它讲起\n- 公式少、逻辑直观\n- 是 CFOP 的\"地基\"——F2L 本质就是层先法前两层的高效版\n\n## 局限\n步数多、思考断点多，均速很难突破 30 秒，因此速拧选手会转向 CFOP/Roux/ZZ。\n\n> 训练营 L0–L2 关卡即基于层先法设计。",
+   "html": "<p>层先法（Layer By Layer）把还原拆成七步：十字、底层角、中层棱、顶层十字、翻色、角归位、棱归位。</p>\n<h2 id=\"_1\">为什么重要</h2>\n<ul>\n<li>几乎每个教程都从它讲起</li>\n<li>公式少、逻辑直观</li>\n<li>是 CFOP 的\"地基\"——F2L 本质就是层先法前两层的高效版</li>\n</ul>\n<h2 id=\"_2\">局限</h2>\n<p>步数多、思考断点多，均速很难突破 30 秒，因此速拧选手会转向 CFOP/Roux/ZZ。</p>\n<blockquote>\n<p>训练营 L0–L2 关卡即基于层先法设计。</p>\n</blockquote>"
+  },
+  {
+   "title": "比赛案例｜WCA 2025 世界锦标赛（西雅图）",
+   "category": "比赛",
+   "source": "https://www.worldcubeassociation.org/competitions/WC2025",
+   "source_name": "World Cube Association",
+   "order": 5,
+   "tags": [
+    "WCA",
+    "世锦赛",
+    2025
+   ],
+   "summary": "第 12 届 WCA 世锦赛，2025 年 7 月 3–6 日于美国西雅图举行。",
+   "id": "c05-wc2025",
+   "body": "Rubik's WCA World Championship 2025 是历史上第 12 届魔方世锦赛，由 CubingUSA 承办。\n\n## 基本信息\n- 时间：2025 年 7 月 3–6 日\n- 地点：美国西雅图会议中心（Seattle Convention Center）\n- 规模：来自全球数百名选手同场竞技\n\n## 意义\n世锦赛是 WCA 体系最高级别赛事，四年一度（近年节奏调整），云集各项目世界顶尖。\n\n> 想感受顶级氛围，案例库\"王艺衡夺冠 2025\"详述了三阶结果。",
+   "html": "<p>Rubik's WCA World Championship 2025 是历史上第 12 届魔方世锦赛，由 CubingUSA 承办。</p>\n<h2 id=\"_1\">基本信息</h2>\n<ul>\n<li>时间：2025 年 7 月 3–6 日</li>\n<li>地点：美国西雅图会议中心（Seattle Convention Center）</li>\n<li>规模：来自全球数百名选手同场竞技</li>\n</ul>\n<h2 id=\"_2\">意义</h2>\n<p>世锦赛是 WCA 体系最高级别赛事，四年一度（近年节奏调整），云集各项目世界顶尖。</p>\n<blockquote>\n<p>想感受顶级氛围，案例库\"王艺衡夺冠 2025\"详述了三阶结果。</p>\n</blockquote>"
+  },
+  {
+   "title": "比赛案例｜王艺衡夺冠 2025 世锦赛三阶",
+   "category": "比赛",
+   "source": "https://www.worldcubeassociation.org/competitions/WC2025/results/podiums",
+   "source_name": "WCA 官方成绩",
+   "order": 6,
+   "tags": [
+    "王艺衡",
+    "世锦赛",
+    "三阶",
+    2025
+   ],
+   "summary": "王艺衡（Yiheng Wang）以均速 4.23 秒夺得 2025 世锦赛三阶冠军。",
+   "id": "c06-yiheng-win",
+   "body": "在 2025 西雅图世锦赛三阶项目中，中国选手 **王艺衡（Yiheng Wang）** 夺冠。\n\n## 领奖台（三阶）\n- 🥇 王艺衡（Yiheng Wang）：平均 **4.23 秒**\n- 🥈 耿暄一（Geng Xuanyi）：平均 4.49 秒\n- 🥉 Tymon Kolasiński（波兰）：平均 4.98 秒\n\n## 看点\n中国选手包揽冠亚军，展现三阶项目的强势统治力；Tymon 作为长期顶尖选手再度登台。\n\n> 数据来自 WCA 官方 podiums 页面，权威可查。人物详情见\"王艺衡\"案例。",
+   "html": "<p>在 2025 西雅图世锦赛三阶项目中，中国选手 <strong>王艺衡（Yiheng Wang）</strong> 夺冠。</p>\n<h2 id=\"_1\">领奖台（三阶）</h2>\n<ul>\n<li>🥇 王艺衡（Yiheng Wang）：平均 <strong>4.23 秒</strong></li>\n<li>🥈 耿暄一（Geng Xuanyi）：平均 4.49 秒</li>\n<li>🥉 Tymon Kolasiński（波兰）：平均 4.98 秒</li>\n</ul>\n<h2 id=\"_2\">看点</h2>\n<p>中国选手包揽冠亚军，展现三阶项目的强势统治力；Tymon 作为长期顶尖选手再度登台。</p>\n<blockquote>\n<p>数据来自 WCA 官方 podiums 页面，权威可查。人物详情见\"王艺衡\"案例。</p>\n</blockquote>"
+  },
+  {
+   "title": "比赛案例｜WCA 赛事项目一览（17 项）",
+   "category": "比赛",
+   "source": "https://www.worldcubeassociation.org/regulations/",
+   "source_name": "WCA Regulations",
+   "order": 7,
+   "tags": [
+    "WCA",
+    "项目",
+    "规则"
+   ],
+   "summary": "WCA 官方赛事涵盖三阶、盲拧、最少步、异形等共 17 个项目。",
+   "id": "c07-wca-events",
+   "body": "WCA 认可的官方比赛项目非常丰富，主要包括：\n\n## 标准阶数\n三阶、二阶、四阶、五阶、六阶、七阶\n\n## 特殊玩法\n- 三阶单手（OH）\n- 三阶脚拧（Fewest Moves 之外）\n- 三阶盲拧、三阶多盲\n- 三阶最少步（FMC）\n- 魔表（Clock）\n- 金字塔（Pyraminx）\n- 斜转（Skewb）\n- 五阶盲拧等\n\n合计约 **17 个项目**，满足不同兴趣的玩家。\n\n> 参赛前可在 WCA 官网查本地赛事日程，免费注册。",
+   "html": "<p>WCA 认可的官方比赛项目非常丰富，主要包括：</p>\n<h2 id=\"_1\">标准阶数</h2>\n<p>三阶、二阶、四阶、五阶、六阶、七阶</p>\n<h2 id=\"_2\">特殊玩法</h2>\n<ul>\n<li>三阶单手（OH）</li>\n<li>三阶脚拧（Fewest Moves 之外）</li>\n<li>三阶盲拧、三阶多盲</li>\n<li>三阶最少步（FMC）</li>\n<li>魔表（Clock）</li>\n<li>金字塔（Pyraminx）</li>\n<li>斜转（Skewb）</li>\n<li>五阶盲拧等</li>\n</ul>\n<p>合计约 <strong>17 个项目</strong>，满足不同兴趣的玩家。</p>\n<blockquote>\n<p>参赛前可在 WCA 官网查本地赛事日程，免费注册。</p>\n</blockquote>"
+  },
+  {
+   "title": "比赛案例｜世界纪录演进：从 22 秒到 3 秒",
+   "category": "比赛",
+   "source": "https://www.cubinghistory.com/World%20Records/WorldRecordAverages2H",
+   "source_name": "Cubing History",
+   "order": 8,
+   "tags": [
+    "世界纪录",
+    "历史",
+    "三阶"
+   ],
+   "summary": "三阶单次纪录从 1982 年的 22 秒一路刷新到 3 秒级别。",
+   "id": "c08-wr-evolution",
+   "body": "三阶速拧世界纪录的演进，是魔方运动发展的缩影。\n\n## 大致脉络\n- 1982 年首届世锦赛：单次约 22 秒\n- 2000 年代：Fridrich 方法普及，纪录跌破 10 秒\n- 2010 年代：器械（磁力魔方）+ 手法飞跃，纪录进入 5–6 秒\n- 2020 年代：新生代选手将单次压到 **3 秒级**、平均压到 **4 秒级**\n\n## 启示\n纪录的刷新 = 方法成熟 + 器材进步 + 训练科学化。普通人也能从这套规律中受益。\n\n> 具体当前纪录请以 WCA 官方 rankings 为准，纪录持续更新。",
+   "html": "<p>三阶速拧世界纪录的演进，是魔方运动发展的缩影。</p>\n<h2 id=\"_1\">大致脉络</h2>\n<ul>\n<li>1982 年首届世锦赛：单次约 22 秒</li>\n<li>2000 年代：Fridrich 方法普及，纪录跌破 10 秒</li>\n<li>2010 年代：器械（磁力魔方）+ 手法飞跃，纪录进入 5–6 秒</li>\n<li>2020 年代：新生代选手将单次压到 <strong>3 秒级</strong>、平均压到 <strong>4 秒级</strong></li>\n</ul>\n<h2 id=\"_2\">启示</h2>\n<p>纪录的刷新 = 方法成熟 + 器材进步 + 训练科学化。普通人也能从这套规律中受益。</p>\n<blockquote>\n<p>具体当前纪录请以 WCA 官方 rankings 为准，纪录持续更新。</p>\n</blockquote>"
+  },
+  {
+   "title": "人物案例｜王艺衡（Yiheng Wang）",
+   "category": "人物",
+   "source": "https://www.worldcubeassociation.org/persons/2019WANY36",
+   "source_name": "WCA 个人页",
+   "order": 9,
+   "tags": [
+    "王艺衡",
+    "中国",
+    "三阶"
+   ],
+   "summary": "中国天才选手，多次打破三阶世界纪录，2025 世锦赛三阶冠军。",
+   "id": "c09-yiheng",
+   "body": "**王艺衡（Yiheng Wang）**，WCA ID `2019WANY36`，中国速拧选手，被誉为天才型新生代。\n\n## 主要成就（据公开资料）\n- 2025 西雅图世锦赛 **三阶冠军**（平均 4.23 秒）\n- 早年即以未成年身份多次刷新三阶世界纪录\n- 在二阶、三阶多个项目长期位居世界前列\n\n## 训练启示\n年少成名背后是高频、专注的训练与极强稳定性。对新手而言，\"稳定比偶然快一次更重要\"。\n\n> 数据请以 WCA 官方个人页最新成绩为准。",
+   "html": "<p><strong>王艺衡（Yiheng Wang）</strong>，WCA ID <code>2019WANY36</code>，中国速拧选手，被誉为天才型新生代。</p>\n<h2 id=\"_1\">主要成就（据公开资料）</h2>\n<ul>\n<li>2025 西雅图世锦赛 <strong>三阶冠军</strong>（平均 4.23 秒）</li>\n<li>早年即以未成年身份多次刷新三阶世界纪录</li>\n<li>在二阶、三阶多个项目长期位居世界前列</li>\n</ul>\n<h2 id=\"_2\">训练启示</h2>\n<p>年少成名背后是高频、专注的训练与极强稳定性。对新手而言，\"稳定比偶然快一次更重要\"。</p>\n<blockquote>\n<p>数据请以 WCA 官方个人页最新成绩为准。</p>\n</blockquote>"
+  },
+  {
+   "title": "人物案例｜Max Park",
+   "category": "人物",
+   "source": "https://www.guinnessworldrecords.com/news/2023/6/max-park-makes-history-by-solving-cube-in-fastest-time-ever-752905",
+   "source_name": "Guinness World Records",
+   "order": 10,
+   "tags": [
+    "Max Park",
+    "美国",
+    "三阶",
+    "纪录"
+   ],
+   "summary": "美国选手，曾创造三阶单次 3.13 秒的世界纪录。",
+   "id": "c10-maxpark",
+   "body": "**Max Park** 是美国顶尖速拧选手，长期位居世界前列。\n\n## 主要成就（据公开资料）\n- 曾创造三阶单次 **3.13 秒** 的世界纪录（2023，吉尼斯认证）\n- 在多个阶数（三阶、四阶、五阶等）均有世界级表现\n- 与自闭症谱系相伴成长，其故事激励大量玩家\n\n## 训练启示\n极致成绩来自海量重复与稳定心态。他的比赛录像非常适合学习\"冷静、匀速\"的节奏。\n\n> 最新纪录请以 WCA 官方 rankings 为准。",
+   "html": "<p><strong>Max Park</strong> 是美国顶尖速拧选手，长期位居世界前列。</p>\n<h2 id=\"_1\">主要成就（据公开资料）</h2>\n<ul>\n<li>曾创造三阶单次 <strong>3.13 秒</strong> 的世界纪录（2023，吉尼斯认证）</li>\n<li>在多个阶数（三阶、四阶、五阶等）均有世界级表现</li>\n<li>与自闭症谱系相伴成长，其故事激励大量玩家</li>\n</ul>\n<h2 id=\"_2\">训练启示</h2>\n<p>极致成绩来自海量重复与稳定心态。他的比赛录像非常适合学习\"冷静、匀速\"的节奏。</p>\n<blockquote>\n<p>最新纪录请以 WCA 官方 rankings 为准。</p>\n</blockquote>"
+  },
+  {
+   "title": "人物案例｜Tymon Kolasiński",
+   "category": "人物",
+   "source": "https://www.worldcubeassociation.org/results/rankings/333/average",
+   "source_name": "WCA Rankings",
+   "order": 11,
+   "tags": [
+    "Tymon",
+    "波兰",
+    "三阶"
+   ],
+   "summary": "波兰选手，长期世界顶尖，2025 世锦赛三阶季军。",
+   "id": "c11-tymon",
+   "body": "**Tymon Kolasiński** 是波兰代表性速拧选手，长期稳居世界最前列。\n\n## 主要成就（据公开资料）\n- 曾与他人并列保持三阶平均世界纪录（4.86 秒）\n- 多次在世锦赛、欧锦赛登上领奖台\n- 2025 西雅图世锦赛三阶 **季军**（平均 4.98 秒）\n\n## 训练启示\n他与王艺衡、Max Park 构成当代三阶\"第一梯队\"，互相刷新纪录推动项目进步。\n\n> 数据以 WCA 官方 rankings 为准。",
+   "html": "<p><strong>Tymon Kolasiński</strong> 是波兰代表性速拧选手，长期稳居世界最前列。</p>\n<h2 id=\"_1\">主要成就（据公开资料）</h2>\n<ul>\n<li>曾与他人并列保持三阶平均世界纪录（4.86 秒）</li>\n<li>多次在世锦赛、欧锦赛登上领奖台</li>\n<li>2025 西雅图世锦赛三阶 <strong>季军</strong>（平均 4.98 秒）</li>\n</ul>\n<h2 id=\"_2\">训练启示</h2>\n<p>他与王艺衡、Max Park 构成当代三阶\"第一梯队\"，互相刷新纪录推动项目进步。</p>\n<blockquote>\n<p>数据以 WCA 官方 rankings 为准。</p>\n</blockquote>"
+  },
+  {
+   "title": "人物案例｜Feliks Zemdegs",
+   "category": "人物",
+   "source": "https://www.worldcubeassociation.org/results/rankings/333/average",
+   "source_name": "WCA Rankings",
+   "order": 12,
+   "tags": [
+    "Feliks",
+    "澳大利亚",
+    "传奇"
+   ],
+   "summary": "澳大利亚传奇选手，开创多个世界纪录时代，被誉为\"魔方之神\"。",
+   "id": "c12-feliks",
+   "body": "**Feliks Zemdegs** 来自澳大利亚，是魔方运动史上最具影响力的人物之一。\n\n## 主要成就（据公开资料）\n- 2010 年代长期垄断三阶单次与平均世界纪录\n- 多次世锦赛冠军，推动速拧进入\"5 秒时代\"\n- 以稳定、干净的解法风格著称\n\n## 训练启示\n他把\"记录成绩、分析瓶颈、针对性练习\"做到极致，是科学训练的代表。\n\n> 即使后辈不断刷新他的纪录，其方法论仍值得所有玩家学习。",
+   "html": "<p><strong>Feliks Zemdegs</strong> 来自澳大利亚，是魔方运动史上最具影响力的人物之一。</p>\n<h2 id=\"_1\">主要成就（据公开资料）</h2>\n<ul>\n<li>2010 年代长期垄断三阶单次与平均世界纪录</li>\n<li>多次世锦赛冠军，推动速拧进入\"5 秒时代\"</li>\n<li>以稳定、干净的解法风格著称</li>\n</ul>\n<h2 id=\"_2\">训练启示</h2>\n<p>他把\"记录成绩、分析瓶颈、针对性练习\"做到极致，是科学训练的代表。</p>\n<blockquote>\n<p>即使后辈不断刷新他的纪录，其方法论仍值得所有玩家学习。</p>\n</blockquote>"
+  },
+  {
+   "title": "人物案例｜耿暄一（Geng Xuanyi）",
+   "category": "人物",
+   "source": "https://www.worldcubeassociation.org/competitions/WC2025/results/podiums",
+   "source_name": "WCA 官方成绩",
+   "order": 13,
+   "tags": [
+    "耿暄一",
+    "中国",
+    "三阶"
+   ],
+   "summary": "中国选手，2025 世锦赛三阶亚军（平均 4.49 秒）。",
+   "id": "c13-gengxuanyi",
+   "body": "**耿暄一（Geng Xuanyi）** 是中国新生代三阶选手。\n\n## 主要成就（据公开资料）\n- 2025 西雅图世锦赛三阶 **亚军**（平均 4.49 秒）\n- 与王艺衡一同展现中国三阶的统治力\n\n## 训练启示\n中国选手在青训与高频对抗中快速成长，说明\"环境 + 大量实战\"是提速捷径。\n\n> 数据以 WCA 官方 podiums 为准。",
+   "html": "<p><strong>耿暄一（Geng Xuanyi）</strong> 是中国新生代三阶选手。</p>\n<h2 id=\"_1\">主要成就（据公开资料）</h2>\n<ul>\n<li>2025 西雅图世锦赛三阶 <strong>亚军</strong>（平均 4.49 秒）</li>\n<li>与王艺衡一同展现中国三阶的统治力</li>\n</ul>\n<h2 id=\"_2\">训练启示</h2>\n<p>中国选手在青训与高频对抗中快速成长，说明\"环境 + 大量实战\"是提速捷径。</p>\n<blockquote>\n<p>数据以 WCA 官方 podiums 为准。</p>\n</blockquote>"
+  },
+  {
+   "title": "训练案例｜职业选手的训练节奏",
+   "category": "训练",
+   "source": "https://www.speedsolving.com/threads/method-pros-and-cons-cfop-vs-roux-vs-zz.75425/",
+   "source_name": "Speedsolving Forum",
+   "order": 14,
+   "tags": [
+    "训练",
+    "节奏",
+    "方法"
+   ],
+   "summary": "顶尖选手靠高频、分段、数据化的训练维持状态。",
+   "id": "c14-training-rhythm",
+   "body": "观察职业/顶尖选手的训练，共性很明显：\n\n## 节奏特征\n- **高频短时**：每天多次、每次 30–60 分钟，优于一次性猛练\n- **分段专项**：今天专练 Cross，明天专练某组 PLL\n- **数据驱动**：用 cstimer 记录 Ao5/Ao12，跟踪趋势\n- **刻意慢练**：新公式先慢到精准，再提速\n\n## 对普通玩家的建议\n不必模仿强度，只学结构：固定频率 + 专项突破 + 记录复盘。\n\n> 配合\"计时、复盘与目标设定\"文章效果更佳。",
+   "html": "<p>观察职业/顶尖选手的训练，共性很明显：</p>\n<h2 id=\"_1\">节奏特征</h2>\n<ul>\n<li><strong>高频短时</strong>：每天多次、每次 30–60 分钟，优于一次性猛练</li>\n<li><strong>分段专项</strong>：今天专练 Cross，明天专练某组 PLL</li>\n<li><strong>数据驱动</strong>：用 cstimer 记录 Ao5/Ao12，跟踪趋势</li>\n<li><strong>刻意慢练</strong>：新公式先慢到精准，再提速</li>\n</ul>\n<h2 id=\"_2\">对普通玩家的建议</h2>\n<p>不必模仿强度，只学结构：固定频率 + 专项突破 + 记录复盘。</p>\n<blockquote>\n<p>配合\"计时、复盘与目标设定\"文章效果更佳。</p>\n</blockquote>"
+  },
+  {
+   "title": "训练案例｜比赛心态与抗压",
+   "category": "训练",
+   "source": "https://www.cubzor.com/news/yiheng-wang-crowned-3x3x3-world-champion-at-rubiks-wca-world-championship-2025",
+   "source_name": "Cubzor News",
+   "order": 15,
+   "tags": [
+    "心态",
+    "比赛",
+    "抗压"
+   ],
+   "summary": "大赛拼的不只是手速，更是观察规划与情绪稳定。",
+   "id": "c15-mindset",
+   "body": "顶级对决中，技术差距极小，**心态**往往决定胜负。\n\n## 常见压力源\n- 观察阶段慌乱，开拧即错\n- 一次失误后连锁崩盘\n- 过度关注对手成绩\n\n## 应对\n- 固定赛前流程（深呼吸、检查魔方、规划 Cross）\n- 失误后立刻归零，专注下一次\n- 平时模拟比赛节奏训练\n\n> 王艺衡等选手在大赛中的稳定发挥，正是长期心理训练的结果。",
+   "html": "<p>顶级对决中，技术差距极小，<strong>心态</strong>往往决定胜负。</p>\n<h2 id=\"_1\">常见压力源</h2>\n<ul>\n<li>观察阶段慌乱，开拧即错</li>\n<li>一次失误后连锁崩盘</li>\n<li>过度关注对手成绩</li>\n</ul>\n<h2 id=\"_2\">应对</h2>\n<ul>\n<li>固定赛前流程（深呼吸、检查魔方、规划 Cross）</li>\n<li>失误后立刻归零，专注下一次</li>\n<li>平时模拟比赛节奏训练</li>\n</ul>\n<blockquote>\n<p>王艺衡等选手在大赛中的稳定发挥，正是长期心理训练的结果。</p>\n</blockquote>"
+  },
+  {
+   "title": "训练案例｜用 cstimer 计时与统计",
+   "category": "训练",
+   "source": "https://cstimer.net/",
+   "source_name": "cstimer.net",
+   "order": 16,
+   "tags": [
+    "计时",
+    "工具",
+    "统计"
+   ],
+   "summary": "免费在线计时器，支持打乱、Ao5/Ao12、图表分析。",
+   "id": "c16-cstimer",
+   "body": "[cstimer.net](https://cstimer.net/) 是速拧圈最常用的免费在线计时器。\n\n## 核心功能\n- 标准 WCA 打乱公式生成\n- 实时计时，自动计算 Ao5 / Ao12 / 最佳\n- 成绩趋势图、按方法分组\n- 可导入/导出成绩，长期追踪\n\n## 使用建议\n- 每次训练都开计时，不\"裸拧\"\n- 关注 Ao12（比单次更真实反映水平）\n- 用标签区分 LBL / CFOP，看方法进步\n\n> 训练营 L3 关卡要求用计时器记录 20 次成绩，cstimer 是最佳选择。",
+   "html": "<p><a href=\"https://cstimer.net/\">cstimer.net</a> 是速拧圈最常用的免费在线计时器。</p>\n<h2 id=\"_1\">核心功能</h2>\n<ul>\n<li>标准 WCA 打乱公式生成</li>\n<li>实时计时，自动计算 Ao5 / Ao12 / 最佳</li>\n<li>成绩趋势图、按方法分组</li>\n<li>可导入/导出成绩，长期追踪</li>\n</ul>\n<h2 id=\"_2\">使用建议</h2>\n<ul>\n<li>每次训练都开计时，不\"裸拧\"</li>\n<li>关注 Ao12（比单次更真实反映水平）</li>\n<li>用标签区分 LBL / CFOP，看方法进步</li>\n</ul>\n<blockquote>\n<p>训练营 L3 关卡要求用计时器记录 20 次成绩，cstimer 是最佳选择。</p>\n</blockquote>"
+  },
+  {
+   "title": "训练案例｜手法练习与伤病预防",
+   "category": "训练",
+   "source": "https://speedcubing.org/pages/guide-to-choosing-a-speedsolving-method",
+   "source_name": "SpeedCubing.org",
+   "order": 17,
+   "tags": [
+    "手法",
+    "健康",
+    "伤病"
+   ],
+   "summary": "高频训练易伤手腕/手指，正确手法与休息缺一不可。",
+   "id": "c17-injury",
+   "body": "速拧是低强度运动，但每天上千次转动仍可能劳损。\n\n## 风险点\n- 手腕长期扭转 → 腱鞘炎\n- 指甲/指腹磨损\n- 长期低头久坐\n\n## 预防\n- 学正确手法，减少手腕代偿\n- 每 20–30 分钟休息、拉伸手指手腕\n- 魔方张力/磁力调舒适，别拧太紧\n- 手感痛就停，避免慢性损伤\n\n> 手法文章（a09）里的\"弹而非拧\"也是护手关键。",
+   "html": "<p>速拧是低强度运动，但每天上千次转动仍可能劳损。</p>\n<h2 id=\"_1\">风险点</h2>\n<ul>\n<li>手腕长期扭转 → 腱鞘炎</li>\n<li>指甲/指腹磨损</li>\n<li>长期低头久坐</li>\n</ul>\n<h2 id=\"_2\">预防</h2>\n<ul>\n<li>学正确手法，减少手腕代偿</li>\n<li>每 20–30 分钟休息、拉伸手指手腕</li>\n<li>魔方张力/磁力调舒适，别拧太紧</li>\n<li>手感痛就停，避免慢性损伤</li>\n</ul>\n<blockquote>\n<p>手法文章（a09）里的\"弹而非拧\"也是护手关键。</p>\n</blockquote>"
+  },
+  {
+   "title": "器材案例｜磁力魔方原理",
+   "category": "器材",
+   "source": "https://www.thecubicle.com/en-global/pages/cuber-profile/wang-yiheng",
+   "source_name": "TheCubicle",
+   "order": 18,
+   "tags": [
+    "磁力",
+    "器材",
+    "原理"
+   ],
+   "summary": "块内磁片提供定位反馈，提升稳定与容错。",
+   "id": "c18-magnetic",
+   "body": "现代速拧魔方几乎标配**磁感（Magnetic）**。\n\n## 原理\n在棱块与角块内嵌入小磁片，转动到位时磁片相吸，给出清晰的\"咔哒\"定位感。\n\n## 好处\n- 落块更稳，减少 overshoot（转过头）\n- 高速下容错更高\n- 手感更\"扎实\"\n\n## 磁感等级\n从弱磁到强磁可选，弱磁灵活、强磁稳定，按手感与阶段选择。\n\n> 选购指南（a16）与\"魔方调校\"案例可进一步了解。",
+   "html": "<p>现代速拧魔方几乎标配<strong>磁感（Magnetic）</strong>。</p>\n<h2 id=\"_1\">原理</h2>\n<p>在棱块与角块内嵌入小磁片，转动到位时磁片相吸，给出清晰的\"咔哒\"定位感。</p>\n<h2 id=\"_2\">好处</h2>\n<ul>\n<li>落块更稳，减少 overshoot（转过头）</li>\n<li>高速下容错更高</li>\n<li>手感更\"扎实\"</li>\n</ul>\n<h2 id=\"_3\">磁感等级</h2>\n<p>从弱磁到强磁可选，弱磁灵活、强磁稳定，按手感与阶段选择。</p>\n<blockquote>\n<p>选购指南（a16）与\"魔方调校\"案例可进一步了解。</p>\n</blockquote>"
+  },
+  {
+   "title": "器材案例｜主流品牌对比 GAN / MoYu / QiYi",
+   "category": "器材",
+   "source": "https://www.thecubicle.com/",
+   "source_name": "TheCubicle",
+   "order": 19,
+   "tags": [
+    "品牌",
+    "GAN",
+    "MoYu",
+    "QiYi"
+   ],
+   "summary": "三大主流品牌定位不同：高端、性价比、入门友好。",
+   "id": "c19-brands",
+   "body": "速拧魔方三大主流品牌各有特点：\n\n## GAN\n- 定位：高端旗舰\n- 特点：手感顺滑、做工精、价格高\n- 适合：追求极致手感、预算充足\n\n## MoYu（魔域）\n- 定位：高性价比\n- 特点：型号多、RS 系列亲民、竞赛级也很强\n- 适合：大多数玩家，从入门到进阶\n\n## QiYi（奇艺）\n- 定位：入门友好\n- 特点：价格亲民、异形与特殊玩法丰富\n- 适合：新手与异形爱好者\n\n> 新手第一颗选 50–80 元带磁三阶即可，不必一步到位。",
+   "html": "<p>速拧魔方三大主流品牌各有特点：</p>\n<h2 id=\"gan\">GAN</h2>\n<ul>\n<li>定位：高端旗舰</li>\n<li>特点：手感顺滑、做工精、价格高</li>\n<li>适合：追求极致手感、预算充足</li>\n</ul>\n<h2 id=\"moyu\">MoYu（魔域）</h2>\n<ul>\n<li>定位：高性价比</li>\n<li>特点：型号多、RS 系列亲民、竞赛级也很强</li>\n<li>适合：大多数玩家，从入门到进阶</li>\n</ul>\n<h2 id=\"qiyi\">QiYi（奇艺）</h2>\n<ul>\n<li>定位：入门友好</li>\n<li>特点：价格亲民、异形与特殊玩法丰富</li>\n<li>适合：新手与异形爱好者</li>\n</ul>\n<blockquote>\n<p>新手第一颗选 50–80 元带磁三阶即可，不必一步到位。</p>\n</blockquote>"
+  },
+  {
+   "title": "器材案例｜如何调校魔方（张力/润滑）",
+   "category": "器材",
+   "source": "https://www.thecubicle.com/",
+   "source_name": "TheCubicle",
+   "order": 20,
+   "tags": [
+    "调校",
+    "润滑",
+    "器材"
+   ],
+   "summary": "通过张力调节与润滑，让魔方贴合个人手感。",
+   "id": "c20-tune",
+   "body": "同一颗魔方，调校后手感天差地别。\n\n## 张力（Tension）\n- 调松：转动轻快、易飞棱\n- 调紧：稳定、略重\n- 找到\"不卡又不飘\"的甜区\n\n## 润滑（Lube）\n- 快油：降低阻力、提速\n- 重油/硅脂：增加稳定与阻尼\n- 少量多次，别过量\n\n## 维护\n定期清理灰尘、重新上油，魔方寿命与手感都能延长。\n\n> 新手先按出厂设置练，稳定后再微调。",
+   "html": "<p>同一颗魔方，调校后手感天差地别。</p>\n<h2 id=\"tension\">张力（Tension）</h2>\n<ul>\n<li>调松：转动轻快、易飞棱</li>\n<li>调紧：稳定、略重</li>\n<li>找到\"不卡又不飘\"的甜区</li>\n</ul>\n<h2 id=\"lube\">润滑（Lube）</h2>\n<ul>\n<li>快油：降低阻力、提速</li>\n<li>重油/硅脂：增加稳定与阻尼</li>\n<li>少量多次，别过量</li>\n</ul>\n<h2 id=\"_1\">维护</h2>\n<p>定期清理灰尘、重新上油，魔方寿命与手感都能延长。</p>\n<blockquote>\n<p>新手先按出厂设置练，稳定后再微调。</p>\n</blockquote>"
+  },
+  {
+   "title": "专题案例｜二阶魔方入门",
+   "category": "专题",
+   "source": "https://www.speedsolving.com/wiki/index.php?title=2x2x2",
+   "source_name": "Speedsolving Wiki",
+   "order": 21,
+   "tags": [
+    "二阶",
+    "入门",
+    "异形"
+   ],
+   "summary": "二阶无中心无棱，本质只解角块，入门极快。",
+   "id": "c21-2x2",
+   "body": "二阶（2×2×2）只有 8 个角块，没有中心和棱。\n\n## 还原思路\n- 先做一个小面（2×2 角块组）\n- 用一层法（类似层先法第一层）处理剩余角块\n- 常用公式少，几分钟可学会\n\n## 与三阶关系\n二阶是三阶的\"角块部分\"，理解它有助于后续学盲拧与高阶。\n\n> 王艺衡等选手在二阶也极具统治力（平均可低至 0.8x 秒级）。",
+   "html": "<p>二阶（2×2×2）只有 8 个角块，没有中心和棱。</p>\n<h2 id=\"_1\">还原思路</h2>\n<ul>\n<li>先做一个小面（2×2 角块组）</li>\n<li>用一层法（类似层先法第一层）处理剩余角块</li>\n<li>常用公式少，几分钟可学会</li>\n</ul>\n<h2 id=\"_2\">与三阶关系</h2>\n<p>二阶是三阶的\"角块部分\"，理解它有助于后续学盲拧与高阶。</p>\n<blockquote>\n<p>王艺衡等选手在二阶也极具统治力（平均可低至 0.8x 秒级）。</p>\n</blockquote>"
+  },
+  {
+   "title": "专题案例｜四阶魔方入门（降阶法）",
+   "category": "专题",
+   "source": "https://www.speedsolving.com/wiki/index.php?title=4x4x4",
+   "source_name": "Speedsolving Wiki",
+   "order": 22,
+   "tags": [
+    "四阶",
+    "降阶法",
+    "高阶"
+   ],
+   "summary": "四阶用降阶法：拼中心、拼棱，再当三阶解。",
+   "id": "c22-4x4",
+   "body": "四阶（4×4×4）没有固定中心，需先\"造中心\"。\n\n## 降阶法（Redux）三步\n1. **拼中心**：每组同色 4 块聚成中心面\n2. **拼棱**：把同色棱块配对成\"三阶棱\"\n3. **当三阶解**：之后按三阶方法还原\n\n## 特有难点\n- **奇偶校验（parity）**：四阶会出现三阶没有的特殊情况，需额外公式\n- 中心块方向无所谓，但需配对正确\n\n> 掌握了三阶，四阶是自然的下一步。",
+   "html": "<p>四阶（4×4×4）没有固定中心，需先\"造中心\"。</p>\n<h2 id=\"redux\">降阶法（Redux）三步</h2>\n<ol>\n<li><strong>拼中心</strong>：每组同色 4 块聚成中心面</li>\n<li><strong>拼棱</strong>：把同色棱块配对成\"三阶棱\"</li>\n<li><strong>当三阶解</strong>：之后按三阶方法还原</li>\n</ol>\n<h2 id=\"_1\">特有难点</h2>\n<ul>\n<li><strong>奇偶校验（parity）</strong>：四阶会出现三阶没有的特殊情况，需额外公式</li>\n<li>中心块方向无所谓，但需配对正确</li>\n</ul>\n<blockquote>\n<p>掌握了三阶，四阶是自然的下一步。</p>\n</blockquote>"
+  },
+  {
+   "title": "专题案例｜金字塔与斜转等异形",
+   "category": "专题",
+   "source": "https://www.worldcubeassociation.org/regulations/",
+   "source_name": "WCA Regulations",
+   "order": 23,
+   "tags": [
+    "异形",
+    "金字塔",
+    "斜转"
+   ],
+   "summary": "Pyraminx 与 Skewb 转动逻辑不同，入门快、观赏性强。",
+   "id": "c23-wca-others",
+   "body": "除阶数魔方外，WCA 还有多种异形：\n\n## 金字塔（Pyraminx）\n- 四面体结构，转动围绕顶点\n- 无中心块概念，解法极快\n- 新手常 1 小时内学会\n\n## 斜转（Skewb）\n- 沿对角轴转动，块大、容错高\n- 解法与三阶完全不同但直观\n- 手感\"爽快\"，适合放松练\n\n## 其他\n魔表（Clock）、Square-1 等也各有独特机制。\n\n> 想换口味、找回新鲜感，异形是最佳调剂。",
+   "html": "<p>除阶数魔方外，WCA 还有多种异形：</p>\n<h2 id=\"pyraminx\">金字塔（Pyraminx）</h2>\n<ul>\n<li>四面体结构，转动围绕顶点</li>\n<li>无中心块概念，解法极快</li>\n<li>新手常 1 小时内学会</li>\n</ul>\n<h2 id=\"skewb\">斜转（Skewb）</h2>\n<ul>\n<li>沿对角轴转动，块大、容错高</li>\n<li>解法与三阶完全不同但直观</li>\n<li>手感\"爽快\"，适合放松练</li>\n</ul>\n<h2 id=\"_1\">其他</h2>\n<p>魔表（Clock）、Square-1 等也各有独特机制。</p>\n<blockquote>\n<p>想换口味、找回新鲜感，异形是最佳调剂。</p>\n</blockquote>"
+  },
+  {
+   "title": "专题案例｜盲拧入门（Old Pochmann）",
+   "category": "专题",
+   "source": "https://www.speedsolving.com/wiki/index.php?title=Blindfolded",
+   "source_name": "Speedsolving Wiki",
+   "order": 24,
+   "tags": [
+    "盲拧",
+    "Old Pochmann",
+    "专题"
+   ],
+   "summary": "用记忆+编码一次完成，Old Pochmann 是最经典入门法。",
+   "id": "c24-blind",
+   "body": "盲拧（Blindfolded）靠记忆与编码，蒙眼一次性完成。\n\n## Old Pochmann 思路\n- 仅用 R 和 L 的换棱算法（T 排列）处理棱块\n- 角块用另一组算法处理\n- 先记忆\"哪块该去哪\"，再按顺序执行\n\n## 训练路径\n1. 先练\"记忆编码\"（给每个块编号）\n2. 单独练换棱/换角公式\n3. 合起来做短 scramble 盲拧\n\n## 价值\n盲拧极大锻炼空间记忆，是魔方里最\"烧脑\"也最酷的玩法之一。\n\n> 建议先稳定三阶 sub-30 再入门，否则容易受挫。",
+   "html": "<p>盲拧（Blindfolded）靠记忆与编码，蒙眼一次性完成。</p>\n<h2 id=\"old-pochmann\">Old Pochmann 思路</h2>\n<ul>\n<li>仅用 R 和 L 的换棱算法（T 排列）处理棱块</li>\n<li>角块用另一组算法处理</li>\n<li>先记忆\"哪块该去哪\"，再按顺序执行</li>\n</ul>\n<h2 id=\"_1\">训练路径</h2>\n<ol>\n<li>先练\"记忆编码\"（给每个块编号）</li>\n<li>单独练换棱/换角公式</li>\n<li>合起来做短 scramble 盲拧</li>\n</ol>\n<h2 id=\"_2\">价值</h2>\n<p>盲拧极大锻炼空间记忆，是魔方里最\"烧脑\"也最酷的玩法之一。</p>\n<blockquote>\n<p>建议先稳定三阶 sub-30 再入门，否则容易受挫。</p>\n</blockquote>"
+  },
+  {
+   "title": "专题案例｜FMC 最少步数简介",
+   "category": "专题",
+   "source": "https://www.worldcubeassociation.org/regulations/",
+   "source_name": "WCA Regulations",
+   "order": 25,
+   "tags": [
+    "FMC",
+    "最少步",
+    "专题"
+   ],
+   "summary": "比谁用最少步数还原，是脑力而非手速的较量。",
+   "id": "c25-fmc",
+   "body": "FMC（Fewest Moves Challenge）比的是**用最少的步数**还原。\n\n## 规则\n- 给定打乱，限时（通常 1 小时）求最短解法\n- 选手提交自己的解法步数，越少越好\n- 世界顶尖可做到 20 步左右\n\n## 常用思路\n- 用三阶\"上帝之数 20\"作为理论上限\n- 结合 NISS（逆序插入）、块构建等技巧\n\n## 意义\nFMC 锻炼对魔方结构的深层理解，反过来提升速拧的\"观察规划\"能力。\n\n> 适合喜欢解谜、不追求手速的玩家。",
+   "html": "<p>FMC（Fewest Moves Challenge）比的是<strong>用最少的步数</strong>还原。</p>\n<h2 id=\"_1\">规则</h2>\n<ul>\n<li>给定打乱，限时（通常 1 小时）求最短解法</li>\n<li>选手提交自己的解法步数，越少越好</li>\n<li>世界顶尖可做到 20 步左右</li>\n</ul>\n<h2 id=\"_2\">常用思路</h2>\n<ul>\n<li>用三阶\"上帝之数 20\"作为理论上限</li>\n<li>结合 NISS（逆序插入）、块构建等技巧</li>\n</ul>\n<h2 id=\"_3\">意义</h2>\n<p>FMC 锻炼对魔方结构的深层理解，反过来提升速拧的\"观察规划\"能力。</p>\n<blockquote>\n<p>适合喜欢解谜、不追求手速的玩家。</p>\n</blockquote>"
+  },
+  {
+   "title": "专题案例｜速拧术语表",
+   "category": "专题",
+   "source": "https://www.speedsolving.com/wiki/",
+   "source_name": "Speedsolving Wiki",
+   "order": 26,
+   "tags": [
+    "术语",
+    "词典",
+    "专题"
+   ],
+   "summary": "sub、Ao5、PB、F2L……一张表读懂圈内黑话。",
+   "id": "c26-glossary",
+   "body": "速拧圈常用术语速查：\n\n| 术语 | 含义 |\n|------|------|\n| **sub-X** | 成绩低于 X 秒，如 sub-20 即 <20 秒 |\n| **PB** | Personal Best 个人最好成绩 |\n| **Ao5 / Ao12** | 最近 5 / 12 次去头去尾平均 |\n| **LBL** | 层先法 Layer By Layer |\n| **CFOP** | Cross-F2L-OLL-PLL |\n| **F2L** | 前两层 First Two Layers |\n| **OLL / PLL** | 顶层朝向 / 排列 |\n| **OH** | One-Handed 单手 |\n| **BLD** | Blindfolded 盲拧 |\n| **FMC** | 最少步数 Fewest Moves |\n| **Scramble** | 打乱公式 |\n| **Parity** | 四阶等出现的特殊奇偶情况 |\n\n> 看不懂的词，先记下来，训练中会反复遇到。",
+   "html": "<p>速拧圈常用术语速查：</p>\n<table>\n<thead>\n<tr>\n<th>术语</th>\n<th>含义</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>sub-X</strong></td>\n<td>成绩低于 X 秒，如 sub-20 即 &lt;20 秒</td>\n</tr>\n<tr>\n<td><strong>PB</strong></td>\n<td>Personal Best 个人最好成绩</td>\n</tr>\n<tr>\n<td><strong>Ao5 / Ao12</strong></td>\n<td>最近 5 / 12 次去头去尾平均</td>\n</tr>\n<tr>\n<td><strong>LBL</strong></td>\n<td>层先法 Layer By Layer</td>\n</tr>\n<tr>\n<td><strong>CFOP</strong></td>\n<td>Cross-F2L-OLL-PLL</td>\n</tr>\n<tr>\n<td><strong>F2L</strong></td>\n<td>前两层 First Two Layers</td>\n</tr>\n<tr>\n<td><strong>OLL / PLL</strong></td>\n<td>顶层朝向 / 排列</td>\n</tr>\n<tr>\n<td><strong>OH</strong></td>\n<td>One-Handed 单手</td>\n</tr>\n<tr>\n<td><strong>BLD</strong></td>\n<td>Blindfolded 盲拧</td>\n</tr>\n<tr>\n<td><strong>FMC</strong></td>\n<td>最少步数 Fewest Moves</td>\n</tr>\n<tr>\n<td><strong>Scramble</strong></td>\n<td>打乱公式</td>\n</tr>\n<tr>\n<td><strong>Parity</strong></td>\n<td>四阶等出现的特殊奇偶情况</td>\n</tr>\n</tbody>\n</table>\n<blockquote>\n<p>看不懂的词，先记下来，训练中会反复遇到。</p>\n</blockquote>"
+  }
+ ]
+}
