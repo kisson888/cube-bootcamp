@@ -1,4 +1,4 @@
-import { useState, useRef, ReactNode } from "react";
+import { useState, useRef, useEffect, ReactNode } from "react";
 import { CubeState, getFaceColors, FACE_COLORS } from "../lib/cube";
 
 interface Props {
@@ -9,6 +9,8 @@ interface Props {
   /** 高亮某个面（net 描边 + 3D 描边），用于动画演示 */
   highlightFace?: number | null;
   children?: ReactNode; // 3D 视图下的浮动控制条
+  /** 是否允许鼠标/触摸交互（默认 true） */
+  interactive?: boolean;
 }
 
 // 展开图布局（cross）：列 0..3，行 0..2
@@ -31,16 +33,34 @@ const FACE_3D: { face: number; transform: string }[] = [
   { face: 1, transform: "rotateX(-90deg) translateZ(var(--h))" }, // D
 ];
 
+const DEFAULT_ROT = { x: -22, y: -28 };
+
 export default function InteractiveCube({
   state,
   size = 320,
   initialView = "net",
   highlightFace = null,
   children,
+  interactive = true,
 }: Props) {
   const [view, setView] = useState<"net" | "3d">(initialView);
-  const [rot, setRot] = useState({ x: -22, y: -28 });
+  const [rot, setRot] = useState(DEFAULT_ROT);
+  const [scale, setScale] = useState(1);
+  const [dragging, setDragging] = useState(false);
   const drag = useRef<{ x: number; y: number } | null>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  // 滚轮缩放（用原生非 passive 监听，阻止页面滚动）
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el || !interactive) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      setScale((s) => Math.min(1.8, Math.max(0.55, s - e.deltaY * 0.0012)));
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [interactive]);
 
   // —— 2D 展开图（SVG）——
   const s = size / 13;
@@ -50,8 +70,10 @@ export default function InteractiveCube({
   const height = 3 * block + 2 * g;
 
   const onPointerDown = (e: React.PointerEvent) => {
+    if (!interactive) return;
     drag.current = { x: e.clientX, y: e.clientY };
-    (e.target as Element).setPointerCapture?.(e.pointerId);
+    setDragging(true);
+    (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
   };
   const onPointerMove = (e: React.PointerEvent) => {
     if (!drag.current) return;
@@ -60,7 +82,14 @@ export default function InteractiveCube({
     drag.current = { x: e.clientX, y: e.clientY };
     setRot((r) => ({ x: r.x - dy * 0.5, y: r.y + dx * 0.5 }));
   };
-  const onPointerUp = () => (drag.current = null);
+  const endDrag = () => {
+    drag.current = null;
+    setDragging(false);
+  };
+  const resetView = () => {
+    setRot(DEFAULT_ROT);
+    setScale(1);
+  };
 
   return (
     <div className="w-full">
@@ -134,23 +163,27 @@ export default function InteractiveCube({
       ) : (
         <div className="flex flex-col items-center">
           <div
-            className="relative cursor-grab active:cursor-grabbing select-none"
+            ref={stageRef}
+            className="relative cursor-grab active:cursor-grabbing select-none touch-none"
             style={{
               width: size * 0.72,
               height: size * 0.72,
               perspective: size,
+              touchAction: "none",
             }}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerLeave={onPointerUp}
+            onPointerUp={endDrag}
+            onPointerLeave={endDrag}
+            onDoubleClick={interactive ? resetView : undefined}
+            title="拖拽旋转视角 · 滚轮缩放 · 双击复位"
           >
             <div
-              className="cube-3d"
+              className={`cube-3d${dragging ? " dragging" : ""}`}
               style={{
                 width: "100%",
                 height: "100%",
-                transform: `rotateX(${rot.x}deg) rotateY(${rot.y}deg)`,
+                transform: `rotateX(${rot.x}deg) rotateY(${rot.y}deg) scale(${scale})`,
                 ["--h" as any]: `${size * 0.72 * 0.5}px`,
               }}
             >
@@ -180,16 +213,17 @@ export default function InteractiveCube({
           <div className="flex flex-wrap gap-1 mt-3 justify-center">
             {(
               [
-                ["前", 0, 0],
+                ["前", -22, -28],
                 ["上", -90, 0],
                 ["左", 0, 90],
                 ["右", 0, -90],
                 ["立体", -28, -28],
+                ["复位", -22, -28],
               ] as [string, number, number][]
             ).map(([label, x, y]) => (
               <button
                 key={label}
-                onClick={() => setRot({ x, y })}
+                onClick={() => (label === "复位" ? resetView() : setRot({ x, y }))}
                 className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs transition"
               >
                 {label}

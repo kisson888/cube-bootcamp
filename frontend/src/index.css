@@ -76,7 +76,11 @@ body {
 .cube-3d {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.15s ease-out;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+.cube-3d.dragging {
+  transition: none; /* 拖动时关掉过渡，跟随手指无延迟 */
 }
 .cube-face {
   position: absolute;
@@ -84,15 +88,17 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 4%;
-  padding: 4%;
-  border-radius: 10px;
-  background: rgba(15, 23, 42, 0.06);
-  box-shadow: inset 0 0 0 2px rgba(15, 23, 42, 0.25);
-  backface-visibility: visible;
+  gap: 5%;
+  padding: 5%;
+  border-radius: 12px;
+  /* 不透明深色塑料本体——解决“除色块外全透明”的问题 */
+  background: #0f172a;
+  box-shadow: inset 0 0 0 2px rgba(2, 6, 23, 0.65);
+  backface-visibility: hidden; /* 背面不渲染，避免看穿到对面贴纸 */
 }
 .cube-sticker {
-  border-radius: 6px;
-  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.18);
+  border-radius: 7px;
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.35),
+    inset 0 2px 4px rgba(255, 255, 255, 0.12);
   transition: background 0.25s ease;
 }
