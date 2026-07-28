@@ -1,6 +1,10 @@
 # 部署到 GitHub Pages
 
-本仓库已初始化并提交，**只差把代码推到 GitHub 即可自动部署**。当前环境未登录 `gh`、无 `GH_TOKEN`，因此「push」这一步需要你提供凭证（见下方步骤 3）。
+本仓库已初始化、推送并**已成功部署到 GitHub Pages**。下面的步骤供「之后再次更新代码」时参考。
+
+> 推送用 `git + token` 直推（见下方 `push.sh`），**不依赖 `gh` 登录**——
+> 因为 `gh auth login --with-token` 会校验 `read:org` 权限而报错，而部署只需 `repo + workflow`。
+> token 仅在单次命令内注入，**不会写入 `.git/config`**。
 
 ---
 
@@ -15,35 +19,33 @@
 
 ---
 
-## 你来做：3 步推上 GitHub
+## 之后如何更新（推送代码）
 
-### 1) 登录 GitHub CLI（或准备 Token）
-
-```bash
-# 方式 A：交互式登录（浏览器授权）
-gh auth login
-
-# 方式 B：用 Personal Access Token（需 repo + workflow 权限）
-export GH_TOKEN=ghp_xxx   # 仅当前终端有效
-gh auth login --with-token <<< "$GH_TOKEN"
-```
-
-### 2) 创建远程仓库
+推荐用仓库里的 `push.sh`，它走 `git + token` 直推，**不依赖 `gh` 登录**（规避 `read:org` 校验报错）：
 
 ```bash
-# 用你的 GitHub 用户名替换 <you>；仓库名随意，建议 cube-bootcamp
-gh repo create <you>/cube-bootcamp --public --source=. --remote=origin --push
-# 上面 --push 会直接推送当前分支；若已手动 add remote，可改为：
-# git remote add origin https://github.com/<you>/cube-bootcamp.git
-# git push -u origin main
+# token 需含 repo + workflow 权限（不需要 read:org）
+GH_TOKEN=ghp_xxx ./push.sh            # 默认仓库名 cube-bootcamp
+GH_TOKEN=ghp_xxx ./push.sh my-name    # 自定义仓库名
 ```
 
-> 也可用网页在 github.com 新建空仓库，然后只执行：
-> `git remote add origin https://github.com/<you>/cube-bootcamp.git && git push -u origin main`
+脚本会：用 API 建库（若不存在）→ 自动提交未保存改动 → 一次性注入 token 推送 `main` → 触发 Actions 自动部署。
+**token 只在命令内生效，不写入 `.git/config`。**
 
-### 3) 开启 Pages（一次即可）
+> 手动等价操作（仅供理解）：
+> ```bash
+> git remote add origin https://github.com/<you>/cube-bootcamp.git
+> git -c "url.https://<you>:${GH_TOKEN}@github.com/.insteadOf=https://github.com/" push -u origin main
+> ```
+
+### 首次开启 Pages（仅需一次）
+
+
 
 1. 仓库 → **Settings → Pages → Build and deployment → Source 选 "GitHub Actions"**。
+   ⚠️ 别选 "Deploy from a branch"：本仓库用 `actions/deploy-pages` 部署，
+   若 Source 是分支模式，`deploy` 步骤必失败（已踩过坑）。正确模式下
+   Pages 配置的 `build_type` 应为 `workflow`。
 2. 推送 `main` 后，Actions 会自动构建；完成后 Pages 地址为：
    `https://<you>.github.io/cube-bootcamp/`
 3. 首次部署约 1–2 分钟；之后每次推 `main` 自动更新。
