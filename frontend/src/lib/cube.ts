@@ -23,6 +23,7 @@ const NORMALS: Record<number, Vec3> = {
 };
 
 // 顺时针转动（从面外侧观察）对应的 3D 旋转：绕该面外法线 +90°。
+// 中层转动（E/M/S）复用对应面转动的 3D 旋转，仅作用的层不同。
 const ROT: Record<string, (v: Vec3) => Vec3> = {
   U: ([x, y, z]) => [z, y, -x],
   D: ([x, y, z]) => [-z, y, x],
@@ -30,6 +31,9 @@ const ROT: Record<string, (v: Vec3) => Vec3> = {
   R: ([x, y, z]) => [x, -z, y],
   F: ([x, y, z]) => [-y, x, z],
   B: ([x, y, z]) => [y, -x, z],
+  E: ([x, y, z]) => [-z, y, x], // = D 的 3D 旋转
+  M: ([x, y, z]) => [x, z, -y], // = L 的 3D 旋转
+  S: ([x, y, z]) => [-y, x, z], // = F 的 3D 旋转
 };
 
 // 每个面转动所影响的层：沿某轴、某符号的 cubie。
@@ -40,12 +44,16 @@ const LAYER: Record<string, { axis: 0 | 1 | 2; sign: number }> = {
   R: { axis: 0, sign: 1 },
   F: { axis: 2, sign: 1 },
   B: { axis: 2, sign: -1 },
+  E: { axis: 1, sign: 0 }, // 中层
+  M: { axis: 0, sign: 0 },
+  S: { axis: 2, sign: 0 },
 };
 
 export const MOVES: string[] = [
   "U", "U'", "U2", "D", "D'", "D2",
   "L", "L'", "L2", "R", "R'", "R2",
   "F", "F'", "F2", "B", "B'", "B2",
+  "E", "E'", "E2", "M", "M'", "M2", "S", "S'", "S2",
 ];
 
 function key(x: number, y: number, z: number, dx: number, dy: number, dz: number): string {

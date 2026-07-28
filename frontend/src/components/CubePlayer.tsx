@@ -55,7 +55,7 @@ export default function CubePlayer({ states, moves, faceOfMove, size = 300 }: Pr
 
   return (
     <div className="flex flex-col items-center">
-      <InteractiveCube state={cur} size={size} initialView="3d" highlightFace={hi} />
+      <InteractiveCube state={cur} size={size} initialView="3d" highlightFace={hi} enableTurn={false} />
 
       {/* 当前步标签 */}
       <div className="mt-2 text-sm text-slate-600">

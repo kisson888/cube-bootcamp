@@ -6,8 +6,10 @@ import {
   markTutorialStageDone,
   TutorialProgress,
 } from "../lib/profile";
+import { createSolved, scramble } from "../lib/cube";
 import CubePlayer from "../components/CubePlayer";
 import CubePractice from "../components/CubePractice";
+import InteractiveCube from "../components/InteractiveCube";
 
 // 按 phase 分组（保持出现顺序）
 function groupByPhase(stages: TutorialStage[]): { phase: string; items: TutorialStage[] }[] {
@@ -17,6 +19,39 @@ function groupByPhase(stages: TutorialStage[]): { phase: string; items: Tutorial
     map.get(s.phase)!.push(s);
   }
   return [...map.entries()].map(([phase, items]) => ({ phase, items }));
+}
+
+// 自由练习：无目标、可随手拧（拖色块拧层）的沙盒魔方
+function FreePlay({ size = 300 }: { size?: number }) {
+  const [cube, setCube] = useState(createSolved());
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6">
+      <h3 className="font-bold text-slate-800">🧩 自由练习：随手拧（拖色块拧层）</h3>
+      <p className="mt-1 text-sm text-slate-500">
+        没有目标，纯粹找手感：在任意色块上按住拖动即可拧动对应层，像转动真实魔方一样；在空白处拖动旋转视角，滚轮缩放。
+      </p>
+      <div className="mt-4 grid md:grid-cols-[auto_1fr] gap-5 items-center">
+        <InteractiveCube state={cube} size={size} initialView="3d" testId="free-cube" />
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={() => setCube(scramble(createSolved(), 25))}
+            className="px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700 transition"
+          >
+            🎲 随机打乱
+          </button>
+          <button
+            onClick={() => setCube(createSolved())}
+            className="px-4 py-2 rounded-lg bg-slate-200 text-slate-700 text-sm font-semibold hover:bg-slate-300 transition"
+          >
+            ⟲ 复原
+          </button>
+          <p className="mt-1 text-xs text-slate-400 leading-relaxed">
+            小提示：抓住「顶层」的色块往左右拖 → 转顶层；抓住「前层」色块往上拖 → 转右/左层；抓住中间行往左右拖 → 转中层。
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function Tutorial() {
@@ -166,6 +201,9 @@ export default function Tutorial() {
               </div>
             )}
           </div>
+
+          {/* 自由练习（拖色块拧层沙盒） */}
+          <FreePlay size={300} />
         </section>
       </div>
     </div>

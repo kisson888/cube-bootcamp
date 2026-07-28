@@ -114,7 +114,7 @@ export default function CubePractice({ stage, size = 300, onComplete }: Props) {
     <div className="grid md:grid-cols-2 gap-5 items-start">
       {/* 左：魔方 + 状态反馈 */}
       <div>
-        <InteractiveCube state={cube} size={size} initialView="3d" highlightFace={expFace} />
+        <InteractiveCube state={cube} size={size} initialView="3d" highlightFace={expFace} onMove={apply} />
 
         {/* 反馈条 */}
         <div className="mt-3">
