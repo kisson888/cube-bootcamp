@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, ReactNode } from "react";
 import { CubeState, getFaceColors, FACE_COLORS, applyMove } from "../lib/cube";
-import { getCubies, faceCssTransform, computeTurn, type Vec3 } from "../lib/cube3d";
+import { getCubies, faceCssTransform, computeTurn, applyOrbit, norm, dot, type Vec3 } from "../lib/cube3d";
 
 interface Props {
   state: CubeState;
@@ -30,16 +30,17 @@ const LAYOUT: { face: number; col: number; row: number }[] = [
   { face: 1, col: 1, row: 2 }, // D
 ];
 
-const DEFAULT_ROT = { x: -24, y: -32 };
+const DEFAULT_ROT = { x: -26, y: -34 };
+const LIGHT: Vec3 = norm([-0.35, -0.55, 0.78]); // 视空间光（左上前；y 向下为负=上）
 
 // 一次「拖面上拧层」的实时状态（仅用于渲染，不改逻辑 state）
 interface TurnState {
-  eAxis: number; // 引擎坐标轴 0/1/2
-  eLayer: number; // 层坐标 -1/0/1
-  cAxis: Vec3; // CSS 旋转轴
-  angle: number; // 当前角度（deg）
-  progress: number; // 拖动进度 -1..1
-  move: string; // 将要执行的转动
+  eAxis: number;
+  eLayer: number;
+  cAxis: Vec3;
+  angle: number;
+  progress: number;
+  move: string;
 }
 
 export default function InteractiveCube({
@@ -77,19 +78,29 @@ export default function InteractiveCube({
     setTurn(t);
   };
 
-  // 滚轮缩放（原生非 passive 监听，阻止页面滚动）
+  // 滚轮缩放
   useEffect(() => {
     const el = stageRef.current;
     if (!el || !interactive) return;
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      setScale((s) => Math.min(1.8, Math.max(0.55, s - e.deltaY * 0.0012)));
+      setScale((s) => Math.min(1.9, Math.max(0.5, s - e.deltaY * 0.0011)));
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
   }, [interactive]);
 
-  // —— 手势：turn（拖面上拧层） / orbit（拖空白转视角） ——
+  // 视角惯性
+  const orbitVel = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const raf = useRef<number | null>(null);
+  const cancelInertia = () => {
+    if (raf.current != null) {
+      cancelAnimationFrame(raf.current);
+      raf.current = null;
+    }
+  };
+
+  // —— 手势：turn / orbit ——
   const gesture = useRef<{
     mode: "none" | "orbit" | "turn";
     x: number;
@@ -99,18 +110,20 @@ export default function InteractiveCube({
     started: boolean;
   }>({ mode: "none", x: 0, y: 0, started: false });
 
+  // 抓取某个色块 → 拧层（直接绑在每个 cubie-face 上，命中稳定）
+  const startTurn = (faceId: number, pos: Vec3, e: React.PointerEvent) => {
+    if (!et) return; // 动画演示等：不拧层，交给舞台转视角
+    e.stopPropagation();
+    gesture.current = { mode: "turn", x: e.clientX, y: e.clientY, faceId, pos, started: false };
+    setDragging(true);
+    (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
+  };
+
+  // 抓取空白处 → 转视角
   const onPointerDown = (e: React.PointerEvent) => {
     if (!interactive) return;
-    const faceEl = (e.target as HTMLElement).closest("[data-face]") as HTMLElement | null;
-    let mode: "orbit" | "turn" = "orbit";
-    let faceId: number | undefined;
-    let pos: Vec3 | undefined;
-    if (et && faceEl) {
-      mode = "turn";
-      faceId = Number(faceEl.dataset.face);
-      pos = faceEl.dataset.pos!.split(",").map(Number) as Vec3;
-    }
-    gesture.current = { mode, x: e.clientX, y: e.clientY, faceId, pos, started: false };
+    cancelInertia();
+    gesture.current = { mode: "orbit", x: e.clientX, y: e.clientY, started: false };
     setDragging(true);
     (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
   };
@@ -121,10 +134,12 @@ export default function InteractiveCube({
     const dx = e.clientX - g.x;
     const dy = e.clientY - g.y;
     if (g.mode === "orbit") {
-      setRot((r) => ({ x: r.x - dy * 0.5, y: r.y + dx * 0.5 }));
+      const vx = -dy * 0.32;
+      const vy = dx * 0.32;
+      setRot((r) => ({ x: r.x + vx, y: r.y + vy }));
+      orbitVel.current = { x: vx, y: vy };
       return;
     }
-    // turn：先过阈值，避免误触
     if (!g.started) {
       if (Math.hypot(dx, dy) < 5) return;
       g.started = true;
@@ -149,6 +164,21 @@ export default function InteractiveCube({
     const g = gesture.current;
     gesture.current = { mode: "none", x: 0, y: 0, started: false };
     setDragging(false);
+    if (g.mode === "orbit") {
+      // 惯性
+      const v = orbitVel.current;
+      if (Math.abs(v.x) > 0.08 || Math.abs(v.y) > 0.08) {
+        const step = () => {
+          setRot((r) => ({ x: r.x + v.x, y: r.y + v.y }));
+          v.x *= 0.9;
+          v.y *= 0.9;
+          if (Math.abs(v.x) > 0.05 || Math.abs(v.y) > 0.05) raf.current = requestAnimationFrame(step);
+          else raf.current = null;
+        };
+        raf.current = requestAnimationFrame(step);
+      }
+      return;
+    }
     if (g.mode !== "turn" || !g.started) return;
     const t = turnRef.current;
     if (!t) return;
@@ -163,21 +193,31 @@ export default function InteractiveCube({
       }
       setTurnBoth(null);
       setSnapping(false);
-    }, 170);
+    }, 200);
   };
 
+  useEffect(() => cancelInertia, []);
+
   const resetView = () => {
+    cancelInertia();
     setRot(DEFAULT_ROT);
     setScale(1);
   };
 
+  // 单块受光亮度（模拟真实光照：朝向光的面更亮）
+  const shadeOf = (d: Vec3): number => {
+    const n = applyOrbit(d, rot.x, rot.y);
+    const dt = Math.max(0, dot(n, LIGHT));
+    return 0.62 + 0.48 * dt;
+  };
+
   // 3D 几何
   const S = size;
-  const V = S * 0.68; // 立方体视觉边长
-  const u = V / 3; // 单块边长
-  const cy = (p: Vec3) => -p[1] * u; // 引擎 y 向上 -> CSS y 向下
+  const V = S * 0.7;
+  const u = V / 3;
+  const cy = (p: Vec3) => -p[1] * u;
 
-  // 2D 展开图（SVG）
+  // 2D 展开图
   const s = size / 13;
   const g = s * 0.35;
   const block = 3 * s;
@@ -261,7 +301,7 @@ export default function InteractiveCube({
             style={{
               width: S,
               height: S,
-              perspective: S * 1.7,
+              perspective: S * 1.9,
               touchAction: "none",
             }}
             onPointerDown={onPointerDown}
@@ -271,10 +311,7 @@ export default function InteractiveCube({
             onDoubleClick={interactive ? resetView : undefined}
             title="在色块上拖动=拧动该层 · 在空白处拖动=旋转视角 · 滚轮缩放 · 双击复位"
           >
-            <div
-              className="cube-shadow"
-              style={{ top: `calc(50% + ${V * 0.62}px)` }}
-            />
+            <div className="cube-shadow" style={{ top: `calc(50% + ${V * 0.6}px)` }} />
             <div
               className={`cube-3d${dragging ? " dragging" : ""}${snapping ? " snapping" : ""}`}
               style={{
@@ -305,9 +342,16 @@ export default function InteractiveCube({
                         className={`cubie-face${highlightFace === f.faceId ? " hl" : ""}`}
                         data-face={f.faceId}
                         data-pos={cb.pos.join(",")}
+                        onPointerDown={(e) => startTurn(f.faceId, cb.pos, e)}
                         style={{ transform: faceCssTransform(f.dir, u / 2) }}
                       >
-                        <div className="sticker" style={{ ["--c" as any]: FACE_COLORS[f.color] }} />
+                        <div
+                          className="sticker"
+                          style={{
+                            ["--c" as any]: FACE_COLORS[f.color],
+                            filter: `brightness(${shadeOf(f.dir).toFixed(3)})`,
+                          }}
+                        />
                       </div>
                     ))}
                   </div>
@@ -318,12 +362,12 @@ export default function InteractiveCube({
           <div className="flex flex-wrap gap-1 mt-3 justify-center">
             {(
               [
-                ["前", -24, -32],
+                ["前", -26, -34],
                 ["上", -90, 0],
                 ["左", 0, 90],
                 ["右", 0, -90],
                 ["立体", -28, -28],
-                ["复位", -24, -32],
+                ["复位", -26, -34],
               ] as [string, number, number][]
             ).map(([label, x, y]) => (
               <button
