@@ -15,14 +15,14 @@ interface Props {
   testId?: string;
 }
 
-// Õ¹¿ªÍ¼²¼¾Ö
+// å±•å¼€å›¾å¸ƒå±€
 const LAYOUT: { face: number; col: number; row: number }[] = [
   { face: 0, col: 1, row: 0 }, { face: 2, col: 0, row: 1 },
   { face: 4, col: 1, row: 1 }, { face: 3, col: 2, row: 1 },
   { face: 5, col: 3, row: 1 }, { face: 1, col: 1, row: 2 },
 ];
 
-// ÒıÇæ·½Ïò£¨Ë÷Òı=FaceId£©£ºU+ y, D- y, L- x, R+ x, F+ z, B- z
+// å¼•æ“æ–¹å‘ï¼ˆç´¢å¼•=FaceIdï¼‰ï¼šU+ y, D- y, L- x, R+ x, F+ z, B- z
 const DIRS: Vec3[] = [
   [1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1],
 ];
@@ -34,7 +34,7 @@ function faceIdOfDir(d: Vec3): number {
 }
 
 const DEFAULT_ROT = { x: -26, y: -34 };
-const SP = 1.0; // cubie ¼ä¾à
+const SP = 1.0; // cubie é—´è·
 const BASE_DIST = 6.68;
 
 function roundedRectShape(w: number, h: number, r: number): THREE.Shape {
@@ -65,14 +65,14 @@ export default function InteractiveCube({
   const [webglFail, setWebglFail] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // three ³¡¾°¶ÔÏó
+  // three åœºæ™¯å¯¹è±¡
   const T = useRef<{
     renderer: THREE.WebGLRenderer; scene: THREE.Scene; camera: THREE.PerspectiveCamera;
     orbit: THREE.Group; cubies: CubieRec[]; ray: THREE.Raycaster;
     camDir: THREE.Vector3; stickerGeo: THREE.BufferGeometry;
   } | null>(null);
 
-  // Âß¼­/½»»¥ÒıÓÃ
+  // é€»è¾‘/äº¤äº’å¼•ç”¨
   const [internal, setInternal] = useState<CubeState>(state);
   const display = onMove ? state : internal;
   const displayRef = useRef<CubeState>(display);
@@ -83,10 +83,10 @@ export default function InteractiveCube({
   const etRef = useRef(et);
   const interactiveRef = useRef(interactive);
   const draggingRef = useRef(false);
-  // µ±Ç°ÍÏ×§²ã×ª¶¯×´Ì¬£¨ÓÃ ref£¬±ÜÃâÃ¿´ÎäÖÈ¾ÖØ½¨±Õ°üÔì³ÉµÄ°ó¶¨´íÂÒ£©
+  // å½“å‰æ‹–æ‹½å±‚è½¬åŠ¨çŠ¶æ€ï¼ˆç”¨ refï¼Œé¿å…æ¯æ¬¡æ¸²æŸ“é‡å»ºé—­åŒ…é€ æˆçš„ç»‘å®šé”™ä¹±ï¼‰
   const turnState = useRef<{ axis: number; layer: number; plan: any }>({ axis: 1, layer: 1, plan: null });
 
-  // ÊÖÊÆ×´Ì¬
+  // æ‰‹åŠ¿çŠ¶æ€
   const gesture = useRef<{ mode: "none" | "orbit" | "turn"; x: number; y: number; faceId?: number; pos?: Vec3; started: boolean; plan?: any }>({ mode: "none", x: 0, y: 0, started: false });
   const orbitVel = useRef({ x: 0, y: 0 });
   const turnAnim = useRef<{ active: boolean; from: number; to: number; start: number; dur: number; cb?: () => void }>({ active: false, from: 0, to: 0, start: 0, dur: 0 });
@@ -95,14 +95,14 @@ export default function InteractiveCube({
   useEffect(() => { etRef.current = et; }, [et]);
   useEffect(() => { interactiveRef.current = interactive; }, [interactive]);
 
-  // ×´Ì¬/¸ßÁÁ±ä»¯ ¡ú ¸üĞÂÌùÖ½ÑÕÉ«
+  // çŠ¶æ€/é«˜äº®å˜åŒ– â†’ æ›´æ–°è´´çº¸é¢œè‰²
   useEffect(() => {
     displayRef.current = display;
     highlightRef.current = highlightFace;
     if (T.current) updateStickers();
   }, [display, highlightFace]);
 
-  // ¹ÒÔØ three£¨½öÔÚ 3D ÊÓÍ¼¼¤»îÊ±£»ÇĞ»ØÕ¹¿ªÍ¼»á×Ô¶¯Ğ¶ÔØ²¢ÊÍ·Å×ÊÔ´£©
+  // æŒ‚è½½ threeï¼ˆä»…åœ¨ 3D è§†å›¾æ¿€æ´»æ—¶ï¼›åˆ‡å›å±•å¼€å›¾ä¼šè‡ªåŠ¨å¸è½½å¹¶é‡Šæ”¾èµ„æºï¼‰
   useEffect(() => {
     if (view !== "3d") return;
     const container = containerRef.current;
@@ -114,7 +114,7 @@ export default function InteractiveCube({
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     } catch (err) {
-      console.warn("WebGL ²»¿ÉÓÃ£¬½µ¼¶ÎªÌáÊ¾£º", err);
+      console.warn("WebGL ä¸å¯ç”¨ï¼Œé™çº§ä¸ºæç¤ºï¼š", err);
       setWebglFail(true);
       return;
     }
@@ -127,7 +127,7 @@ export default function InteractiveCube({
     container.appendChild(renderer.domElement);
     renderer.domElement.style.touchAction = "none";
     renderer.domElement.style.display = "block";
-    // ÈÃ canvas Ê¼ÖÕÆÌÂúÈİÆ÷£¨±ÜÃâ¸ß DPR ÏÂ»º³å³ß´ç±»µ±³É CSS ³ß´çµ¼ÖÂ·Å´ó²ÃÇĞ£©
+    // è®© canvas å§‹ç»ˆé“ºæ»¡å®¹å™¨ï¼ˆé¿å…é«˜ DPR ä¸‹ç¼“å†²å°ºå¯¸è¢«å½“æˆ CSS å°ºå¯¸å¯¼è‡´æ”¾å¤§è£åˆ‡ï¼‰
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
 
@@ -166,7 +166,7 @@ export default function InteractiveCube({
     const orbit = new THREE.Group();
     scene.add(orbit);
 
-    // ¹¹½¨ 26 cubie
+    // æ„å»º 26 cubie
     const bodyMat = new THREE.MeshStandardMaterial({ color: 0x0b0b10, roughness: 0.5, metalness: 0.15 });
     const boxGeo = new THREE.BoxGeometry(0.95, 0.95, 0.95);
     const stickerGeo = new THREE.ShapeGeometry(roundedRectShape(0.82, 0.82, 0.16));
@@ -196,15 +196,15 @@ export default function InteractiveCube({
     applyView(DEFAULT_ROT);
     updateStickers();
 
-    // ¶¯»­Ñ­»·
+    // åŠ¨ç”»å¾ªç¯
     const animate = () => {
-      // ÊÓ½Ç¹ßĞÔ
+      // è§†è§’æƒ¯æ€§
       if (!draggingRef.current && (Math.abs(orbitVel.current.x) > 0.03 || Math.abs(orbitVel.current.y) > 0.03)) {
         rotRef.current = { x: rotRef.current.x + orbitVel.current.x, y: rotRef.current.y + orbitVel.current.y };
         orbitVel.current.x *= 0.9; orbitVel.current.y *= 0.9;
         applyView(rotRef.current);
       }
-      // ²ã×ª¶¯Îü¸½¶¯»­
+      // å±‚è½¬åŠ¨å¸é™„åŠ¨ç”»
       const ta = turnAnim.current;
       if (ta.active) {
         const t = Math.min(1, (performance.now() - ta.start) / ta.dur);
@@ -217,14 +217,14 @@ export default function InteractiveCube({
     };
     renderer.setAnimationLoop(animate);
 
-    // ×ÔÊÊÓ¦³ß´ç
+    // è‡ªé€‚åº”å°ºå¯¸
     const ro = new ResizeObserver(() => {
       const w = container.clientWidth, h = container.clientHeight;
       if (w && h) { renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); }
     });
     ro.observe(container);
 
-    // Ö¸ÕëÊÂ¼ş
+    // æŒ‡é’ˆäº‹ä»¶
     const dom = renderer.domElement;
     dom.addEventListener("pointerdown", onDown);
     dom.addEventListener("pointermove", onMoveH);
@@ -252,7 +252,7 @@ export default function InteractiveCube({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view]);
 
-  // ¡ª¡ª ÒÔÏÂº¯ÊıĞèÄÜ·ÃÎÊ T ÓëÒıÓÃ£¬¹Ê¶¨ÒåÔÚ×é¼şÄÚ£¨±Õ°ü£© ¡ª¡ª
+  // â€”â€” ä»¥ä¸‹å‡½æ•°éœ€èƒ½è®¿é—® T ä¸å¼•ç”¨ï¼Œæ•…å®šä¹‰åœ¨ç»„ä»¶å†…ï¼ˆé—­åŒ…ï¼‰ â€”â€”
   function applyView(r: { x: number; y: number }) {
     const t = T.current; if (!t) return;
     const qx = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), (r.x * Math.PI) / 180);
@@ -316,8 +316,10 @@ export default function InteractiveCube({
       const hit = hits[0];
       const cubie = hit.object as THREE.Mesh;
       const cRec = t.cubies.find((c) => c.mesh === cubie)!;
-      const n = hit.face!.normal.clone(); // ¾Ö²¿·¨Ïß£¨ºĞÌåÎ´Ğı×ªÊ± = ÒıÇæ·½Ïò£©
-      const faceId = faceIdOfDir([n.x, n.y, n.z]);
+      // world normal of hit face -> convert back to engine space via inverse orbit rotation (handles scrambled cubies)
+      const nWorld = hit.face!.normal.clone().transformDirection(hit.object.matrixWorld);
+      const nEngine = nWorld.applyQuaternion(t.orbit.quaternion.clone().invert());
+      const faceId = faceIdOfDir([Math.round(nEngine.x), Math.round(nEngine.y), Math.round(nEngine.z)]);
       gesture.current = { mode: "turn", x: e.clientX, y: e.clientY, faceId, pos: cRec.pos, started: false };
     } else {
       gesture.current = { mode: "orbit", x: e.clientX, y: e.clientY, started: false };
@@ -385,23 +387,23 @@ export default function InteractiveCube({
     applyView(DEFAULT_ROT); applyZoom();
   }
 
-  // 2D Õ¹¿ªÍ¼
+  // 2D å±•å¼€å›¾
   const s = size / 13;
   const g = s * 0.35;
   const block = 3 * s;
   const width = 4 * block + 3 * g;
   const height = 3 * block + 2 * g;
 
-  // ÊÓÍ¼Ô¤Éè
+  // è§†å›¾é¢„è®¾
   const presets: [string, number, number][] = [
-    ["Ç°", -26, -34], ["ÉÏ", -90, 0], ["×ó", 0, 90], ["ÓÒ", 0, -90], ["Á¢Ìå", -28, -28], ["¸´Î»", -26, -34],
+    ["å‰", -26, -34], ["ä¸Š", -90, 0], ["å·¦", 0, 90], ["å³", 0, -90], ["ç«‹ä½“", -28, -28], ["å¤ä½", -26, -34],
   ];
 
   return (
     <div className="w-full" data-testid={testId}>
       <div className="flex gap-1 mb-3 text-xs">
-        <button data-view="net" onClick={() => setView("net")} className={`px-3 py-1 rounded-md transition ${view === "net" ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600"}`}>Õ¹¿ªÍ¼</button>
-        <button data-view="3d" onClick={() => setView("3d")} className={`px-3 py-1 rounded-md transition ${view === "3d" ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600"}`}>3D ÊÓÍ¼</button>
+        <button data-view="net" onClick={() => setView("net")} className={`px-3 py-1 rounded-md transition ${view === "net" ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600"}`}>å±•å¼€å›¾</button>
+        <button data-view="3d" onClick={() => setView("3d")} className={`px-3 py-1 rounded-md transition ${view === "3d" ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600"}`}>3D è§†å›¾</button>
       </div>
 
       {view === "net" ? (
@@ -431,8 +433,8 @@ export default function InteractiveCube({
               style={{ width: size, height: size }}
             >
               <div>
-                µ±Ç°»·¾³²»Ö§³Ö WebGL£¬3D ÊÓÍ¼Ôİ²»¿ÉÓÃ¡£<br />
-                ÇëÇĞ»»µ½¡¸Õ¹¿ªÍ¼¡¹¼ÌĞø£¬»òÔÚÖ§³Ö WebGL µÄä¯ÀÀÆ÷ÖĞ´ò¿ª±¾Ò³Ãæ¡£
+                å½“å‰ç¯å¢ƒä¸æ”¯æŒ WebGLï¼Œ3D è§†å›¾æš‚ä¸å¯ç”¨ã€‚<br />
+                è¯·åˆ‡æ¢åˆ°ã€Œå±•å¼€å›¾ã€ç»§ç»­ï¼Œæˆ–åœ¨æ”¯æŒ WebGL çš„æµè§ˆå™¨ä¸­æ‰“å¼€æœ¬é¡µé¢ã€‚
               </div>
             </div>
           ) : (
@@ -440,12 +442,12 @@ export default function InteractiveCube({
               ref={containerRef}
               className={`relative rounded-xl overflow-hidden ${dragging ? "cursor-grabbing" : "cursor-grab"}`}
               style={{ width: size, height: size, background: "radial-gradient(120% 120% at 50% 30%, #eef2fb 0%, #dde6f5 55%, #c7d4ea 100%)" }}
-              title="ÔÚÉ«¿éÉÏÍÏ¶¯=Å¡¶¯¸Ã²ã ¡¤ ÔÚ¿Õ°×´¦ÍÏ¶¯=Ğı×ªÊÓ½Ç ¡¤ ¹öÂÖËõ·Å ¡¤ Ë«»÷¸´Î»"
+              title="åœ¨è‰²å—ä¸Šæ‹–åŠ¨=æ‹§åŠ¨è¯¥å±‚ Â· åœ¨ç©ºç™½å¤„æ‹–åŠ¨=æ—‹è½¬è§†è§’ Â· æ»šè½®ç¼©æ”¾ Â· åŒå‡»å¤ä½"
             />
           )}
           <div className="flex flex-wrap gap-1 mt-3 justify-center">
             {presets.map(([label, x, y]) => (
-              <button key={label} onClick={() => { if (label === "¸´Î»") resetView(); else { rotRef.current = { x, y }; applyView({ x, y }); } }} className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs transition">{label}</button>
+              <button key={label} onClick={() => { if (label === "å¤ä½") resetView(); else { rotRef.current = { x, y }; applyView({ x, y }); } }} className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs transition">{label}</button>
             ))}
           </div>
           {children}
