@@ -132,7 +132,7 @@ export default function InteractiveCube({
     renderer.domElement.style.height = "100%";
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(42, W / H, 0.5, 50);
     camera.position.set(3.2, 3.5, 4.7);
     camera.lookAt(0, 0, 0);
     const camDir = camera.position.clone().normalize();
@@ -180,10 +180,10 @@ export default function InteractiveCube({
       const stickers = new Map<number, THREE.Mesh>();
       for (let f = 0; f < 6; f++) {
         const dir = DIRS[f];
-        const mat = new THREE.MeshPhysicalMaterial({ color: 0x222222, roughness: 0.28, metalness: 0.0, clearcoat: 0.65, clearcoatRoughness: 0.3 });
+        const mat = new THREE.MeshPhysicalMaterial({ color: 0x222222, roughness: 0.5, metalness: 0.0, clearcoat: 0.2, clearcoatRoughness: 0.6 });
         const st = new THREE.Mesh(stickerGeo, mat);
         st.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), new THREE.Vector3(dir[0], dir[1], dir[2]));
-        st.position.set(dir[0] * 0.49, dir[1] * 0.49, dir[2] * 0.49);
+        st.position.set(dir[0] * 0.5, dir[1] * 0.5, dir[2] * 0.5);
         mesh.add(st);
         stickers.set(f, st);
       }
