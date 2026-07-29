@@ -1,6 +1,6 @@
 import { chromium } from "playwright";
 
-const BASE = "http://localhost:8139";
+const BASE = process.env.E2E_BASE || "http://localhost:8139";
 const URL = BASE + "/#/tutorial";
 const launchArgs = [
   "--no-sandbox", "--disable-dev-shm-usage", "--use-angle=swiftshader",
