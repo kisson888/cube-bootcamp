@@ -342,7 +342,10 @@ export default function InteractiveCube({
     }
     if (!g.started) { if (Math.hypot(dx, dy) < 5) return; g.started = true; }
     if (g.faceId === undefined || !g.pos) return;
-    const plan = computeTurn(g.faceId, g.pos, dx, dy, rotRef.current);
+    // 关键修复：拖拽位移按"单个色块面的像素尺寸"归一化后再喂给 computeTurn，
+    // 使扭转进度与拖动距离成正比（跟手平滑扭动），而非一碰就瞬间弹满 90°
+    const refPx = size / 3;
+    const plan = computeTurn(g.faceId, g.pos, dx / refPx, dy / refPx, rotRef.current);
     if (!plan) { turnState.current.plan = null; resetCubies(); return; }
     turnState.current.plan = plan;
     turnState.current.axis = plan.axis;
