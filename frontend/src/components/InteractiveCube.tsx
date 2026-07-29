@@ -1,293 +1,419 @@
 import { useState, useRef, useEffect, ReactNode } from "react";
+import * as THREE from "three";
 import { CubeState, getFaceColors, FACE_COLORS, applyMove } from "../lib/cube";
-import { getCubies, faceCssTransform, computeTurn, applyOrbit, norm, dot, type Vec3 } from "../lib/cube3d";
+import { computeTurn, type Vec3 } from "../lib/cube3d";
 
 interface Props {
   state: CubeState;
-  /** èˆå°è¾¹é•¿ï¼ˆpxï¼‰ */
   size?: number;
   initialView?: "net" | "3d";
-  /** é«˜äº®æŸä¸ªé¢ï¼ˆnet æè¾¹ + 3D æè¾¹ï¼‰ï¼Œç”¨äºåŠ¨ç”»æ¼”ç¤º */
   highlightFace?: number | null;
-  children?: ReactNode; // 3D è§†å›¾ä¸‹çš„æµ®åŠ¨æ§åˆ¶æ¡
-  /** æ˜¯å¦å…è®¸é¼ æ ‡/è§¦æ‘¸äº¤äº’ï¼ˆé»˜è®¤ trueï¼‰ */
+  children?: ReactNode;
   interactive?: boolean;
-  /** æ˜¯å¦å…è®¸ã€Œæ‹–é¢ä¸Šæ‹§å±‚ã€ï¼ˆé»˜è®¤éš interactiveï¼‰ */
   enableTurn?: boolean;
-  /** æäº¤ä¸€æ¬¡å±‚è½¬åŠ¨ï¼ˆç”±çˆ¶ç»„ä»¶åº”ç”¨å¹¶å›ä¼ æ–° stateï¼Œå—æ§æ¨¡å¼ï¼‰ */
   onMove?: (move: string) => void;
-  /** æµ‹è¯•é”šç‚¹ */
   testId?: string;
 }
 
-// å±•å¼€å›¾å¸ƒå±€ï¼ˆcrossï¼‰ï¼šåˆ— 0..3ï¼Œè¡Œ 0..2
+// Õ¹¿ªÍ¼²¼¾Ö
 const LAYOUT: { face: number; col: number; row: number }[] = [
-  { face: 0, col: 1, row: 0 }, // U
-  { face: 2, col: 0, row: 1 }, // L
-  { face: 4, col: 1, row: 1 }, // F
-  { face: 3, col: 2, row: 1 }, // R
-  { face: 5, col: 3, row: 1 }, // B
-  { face: 1, col: 1, row: 2 }, // D
+  { face: 0, col: 1, row: 0 }, { face: 2, col: 0, row: 1 },
+  { face: 4, col: 1, row: 1 }, { face: 3, col: 2, row: 1 },
+  { face: 5, col: 3, row: 1 }, { face: 1, col: 1, row: 2 },
 ];
 
-const DEFAULT_ROT = { x: -26, y: -34 };
-const LIGHT: Vec3 = norm([-0.35, -0.55, 0.78]); // è§†ç©ºé—´å…‰ï¼ˆå·¦ä¸Šå‰ï¼›y å‘ä¸‹ä¸ºè´Ÿ=ä¸Šï¼‰
+// ÒıÇæ·½Ïò£¨Ë÷Òı=FaceId£©£ºU+ y, D- y, L- x, R+ x, F+ z, B- z
+const DIRS: Vec3[] = [
+  [1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1],
+];
+function faceIdOfDir(d: Vec3): number {
+  const x = Math.round(d[0]), y = Math.round(d[1]), z = Math.round(d[2]);
+  if (y === 1) return 0; if (y === -1) return 1;
+  if (x === -1) return 2; if (x === 1) return 3;
+  if (z === 1) return 4; return 5;
+}
 
-// ä¸€æ¬¡ã€Œæ‹–é¢ä¸Šæ‹§å±‚ã€çš„å®æ—¶çŠ¶æ€ï¼ˆä»…ç”¨äºæ¸²æŸ“ï¼Œä¸æ”¹é€»è¾‘ stateï¼‰
-interface TurnState {
-  eAxis: number;
-  eLayer: number;
-  cAxis: Vec3;
-  angle: number;
-  progress: number;
-  move: string;
+const DEFAULT_ROT = { x: -26, y: -34 };
+const SP = 1.0; // cubie ¼ä¾à
+const BASE_DIST = 8.6;
+
+function roundedRectShape(w: number, h: number, r: number): THREE.Shape {
+  const s = new THREE.Shape();
+  const x = -w / 2, y = -h / 2;
+  s.moveTo(x + r, y);
+  s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r);
+  s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r);
+  s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y);
+  return s;
+}
+
+interface CubieRec {
+  mesh: THREE.Mesh;
+  basePos: THREE.Vector3;
+  pos: Vec3;
+  stickers: Map<number, THREE.Mesh>;
 }
 
 export default function InteractiveCube({
-  state,
-  size = 320,
-  initialView = "net",
-  highlightFace = null,
-  children,
-  interactive = true,
-  enableTurn,
-  onMove,
-  testId,
+  state, size = 320, initialView = "net", highlightFace = null,
+  children, interactive = true, enableTurn, onMove, testId,
 }: Props) {
   const et = enableTurn ?? interactive;
   const [view, setView] = useState<"net" | "3d">(initialView);
-  const [rot, setRot] = useState(DEFAULT_ROT);
-  const [scale, setScale] = useState(1);
   const [dragging, setDragging] = useState(false);
-  const [snapping, setSnapping] = useState(false);
-  const [turn, setTurn] = useState<TurnState | null>(null);
-  const turnRef = useRef<TurnState | null>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
+  const [webglFail, setWebglFail] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // éå—æ§æ¨¡å¼ä¸‹è‡ªç®¡ stateï¼ˆè‡ªç”±ç»ƒä¹ ç”¨ï¼‰
+  // three ³¡¾°¶ÔÏó
+  const T = useRef<{
+    renderer: THREE.WebGLRenderer; scene: THREE.Scene; camera: THREE.PerspectiveCamera;
+    orbit: THREE.Group; cubies: CubieRec[]; ray: THREE.Raycaster;
+    camDir: THREE.Vector3; stickerGeo: THREE.BufferGeometry;
+  } | null>(null);
+
+  // Âß¼­/½»»¥ÒıÓÃ
   const [internal, setInternal] = useState<CubeState>(state);
-  useEffect(() => {
-    if (!onMove) setInternal(state);
-  }, [state, onMove]);
   const display = onMove ? state : internal;
+  const displayRef = useRef<CubeState>(display);
+  const highlightRef = useRef<number | null>(highlightFace);
+  const rotRef = useRef(DEFAULT_ROT);
+  const scaleRef = useRef(1);
+  const onMoveRef = useRef(onMove);
+  const etRef = useRef(et);
+  const interactiveRef = useRef(interactive);
+  const draggingRef = useRef(false);
+  // µ±Ç°ÍÏ×§²ã×ª¶¯×´Ì¬£¨ÓÃ ref£¬±ÜÃâÃ¿´ÎäÖÈ¾ÖØ½¨±Õ°üÔì³ÉµÄ°ó¶¨´íÂÒ£©
+  const turnState = useRef<{ axis: number; layer: number; plan: any }>({ axis: 1, layer: 1, plan: null });
 
-  const cubies = getCubies(display);
+  // ÊÖÊÆ×´Ì¬
+  const gesture = useRef<{ mode: "none" | "orbit" | "turn"; x: number; y: number; faceId?: number; pos?: Vec3; started: boolean; plan?: any }>({ mode: "none", x: 0, y: 0, started: false });
+  const orbitVel = useRef({ x: 0, y: 0 });
+  const turnAnim = useRef<{ active: boolean; from: number; to: number; start: number; dur: number; cb?: () => void }>({ active: false, from: 0, to: 0, start: 0, dur: 0 });
 
-  const setTurnBoth = (t: TurnState | null) => {
-    turnRef.current = t;
-    setTurn(t);
-  };
+  useEffect(() => { onMoveRef.current = onMove; }, [onMove]);
+  useEffect(() => { etRef.current = et; }, [et]);
+  useEffect(() => { interactiveRef.current = interactive; }, [interactive]);
 
-  // æ»šè½®ç¼©æ”¾
+  // ×´Ì¬/¸ßÁÁ±ä»¯ ¡ú ¸üĞÂÌùÖ½ÑÕÉ«
   useEffect(() => {
-    const el = stageRef.current;
-    if (!el || !interactive) return;
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      setScale((s) => Math.min(1.9, Math.max(0.5, s - e.deltaY * 0.0011)));
-    };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, [interactive]);
+    displayRef.current = display;
+    highlightRef.current = highlightFace;
+    if (T.current) updateStickers();
+  }, [display, highlightFace]);
 
-  // è§†è§’æƒ¯æ€§
-  const orbitVel = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const raf = useRef<number | null>(null);
-  const cancelInertia = () => {
-    if (raf.current != null) {
-      cancelAnimationFrame(raf.current);
-      raf.current = null;
+  // ¹ÒÔØ three£¨½öÔÚ 3D ÊÓÍ¼¼¤»îÊ±£»ÇĞ»ØÕ¹¿ªÍ¼»á×Ô¶¯Ğ¶ÔØ²¢ÊÍ·Å×ÊÔ´£©
+  useEffect(() => {
+    if (view !== "3d") return;
+    const container = containerRef.current;
+    if (!container) return;
+    const W = container.clientWidth || size;
+    const H = container.clientHeight || size;
+
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch (err) {
+      console.warn("WebGL ²»¿ÉÓÃ£¬½µ¼¶ÎªÌáÊ¾£º", err);
+      setWebglFail(true);
+      return;
     }
-  };
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(W, H, false);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+    container.appendChild(renderer.domElement);
+    renderer.domElement.style.touchAction = "none";
+    renderer.domElement.style.display = "block";
 
-  // â€”â€” æ‰‹åŠ¿ï¼šturn / orbit â€”â€”
-  const gesture = useRef<{
-    mode: "none" | "orbit" | "turn";
-    x: number;
-    y: number;
-    faceId?: number;
-    pos?: Vec3;
-    started: boolean;
-  }>({ mode: "none", x: 0, y: 0, started: false });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 100);
+    camera.position.set(4.2, 4.6, 6.2);
+    camera.lookAt(0, 0, 0);
+    const camDir = camera.position.clone().normalize();
 
-  // æŠ“å–æŸä¸ªè‰²å— â†’ æ‹§å±‚ï¼ˆç›´æ¥ç»‘åœ¨æ¯ä¸ª cubie-face ä¸Šï¼Œå‘½ä¸­ç¨³å®šï¼‰
-  const startTurn = (faceId: number, pos: Vec3, e: React.PointerEvent) => {
-    if (!et) return; // åŠ¨ç”»æ¼”ç¤ºç­‰ï¼šä¸æ‹§å±‚ï¼Œäº¤ç»™èˆå°è½¬è§†è§’
-    e.stopPropagation();
-    gesture.current = { mode: "turn", x: e.clientX, y: e.clientY, faceId, pos, started: false };
-    setDragging(true);
-    (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
-  };
+    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+    const key = new THREE.DirectionalLight(0xffffff, 1.15);
+    key.position.set(6, 9, 7);
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    key.shadow.camera.near = 1; key.shadow.camera.far = 40;
+    key.shadow.camera.left = -6; key.shadow.camera.right = 6;
+    key.shadow.camera.top = 6; key.shadow.camera.bottom = -6;
+    key.shadow.bias = -0.0005;
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0xbcd2ff, 0.4);
+    fill.position.set(-7, 3, -5);
+    scene.add(fill);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.3);
+    rim.position.set(0, -4, -6);
+    scene.add(rim);
 
-  // æŠ“å–ç©ºç™½å¤„ â†’ è½¬è§†è§’
-  const onPointerDown = (e: React.PointerEvent) => {
-    if (!interactive) return;
-    cancelInertia();
-    gesture.current = { mode: "orbit", x: e.clientX, y: e.clientY, started: false };
-    setDragging(true);
-    (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
-  };
+    const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry(60, 60),
+      new THREE.ShadowMaterial({ opacity: 0.22 })
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -2.25;
+    ground.receiveShadow = true;
+    scene.add(ground);
 
-  const onPointerMove = (e: React.PointerEvent) => {
+    const orbit = new THREE.Group();
+    scene.add(orbit);
+
+    // ¹¹½¨ 26 cubie
+    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x0b0b10, roughness: 0.5, metalness: 0.15 });
+    const boxGeo = new THREE.BoxGeometry(0.95, 0.95, 0.95);
+    const stickerGeo = new THREE.ShapeGeometry(roundedRectShape(0.82, 0.82, 0.16));
+    const cubies: CubieRec[] = [];
+    for (const x of [-1, 0, 1]) for (const y of [-1, 0, 1]) for (const z of [-1, 0, 1]) {
+      if (x === 0 && y === 0 && z === 0) continue;
+      const mesh = new THREE.Mesh(boxGeo, bodyMat);
+      mesh.position.set(x * SP, y * SP, z * SP);
+      mesh.castShadow = true; mesh.receiveShadow = true;
+      orbit.add(mesh);
+      const stickers = new Map<number, THREE.Mesh>();
+      for (let f = 0; f < 6; f++) {
+        const dir = DIRS[f];
+        const mat = new THREE.MeshPhysicalMaterial({ color: 0x222222, roughness: 0.28, metalness: 0.0, clearcoat: 0.65, clearcoatRoughness: 0.3 });
+        const st = new THREE.Mesh(stickerGeo, mat);
+        st.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), new THREE.Vector3(dir[0], dir[1], dir[2]));
+        st.position.set(dir[0] * 0.49, dir[1] * 0.49, dir[2] * 0.49);
+        mesh.add(st);
+        stickers.set(f, st);
+      }
+      cubies.push({ mesh, basePos: new THREE.Vector3(x * SP, y * SP, z * SP), pos: [x, y, z], stickers });
+    }
+
+    const ray = new THREE.Raycaster();
+    T.current = { renderer, scene, camera, orbit, cubies, ray, camDir, stickerGeo };
+
+    applyView(DEFAULT_ROT);
+    updateStickers();
+
+    // ¶¯»­Ñ­»·
+    const animate = () => {
+      // ÊÓ½Ç¹ßĞÔ
+      if (!draggingRef.current && (Math.abs(orbitVel.current.x) > 0.03 || Math.abs(orbitVel.current.y) > 0.03)) {
+        rotRef.current = { x: rotRef.current.x + orbitVel.current.x, y: rotRef.current.y + orbitVel.current.y };
+        orbitVel.current.x *= 0.9; orbitVel.current.y *= 0.9;
+        applyView(rotRef.current);
+      }
+      // ²ã×ª¶¯Îü¸½¶¯»­
+      const ta = turnAnim.current;
+      if (ta.active) {
+        const t = Math.min(1, (performance.now() - ta.start) / ta.dur);
+        const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; // easeInOutCubic
+        const ang = ta.from + (ta.to - ta.from) * e;
+        if (turnState.current.plan) applyLayerRotation(turnState.current.plan.eM, ang);
+        if (t >= 1) { ta.active = false; if (ta.cb) ta.cb(); }
+      }
+      renderer.render(scene, camera);
+    };
+    renderer.setAnimationLoop(animate);
+
+    // ×ÔÊÊÓ¦³ß´ç
+    const ro = new ResizeObserver(() => {
+      const w = container.clientWidth, h = container.clientHeight;
+      if (w && h) { renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+    });
+    ro.observe(container);
+
+    // Ö¸ÕëÊÂ¼ş
+    const dom = renderer.domElement;
+    dom.addEventListener("pointerdown", onDown);
+    dom.addEventListener("pointermove", onMoveH);
+    dom.addEventListener("pointerup", onUp);
+    dom.addEventListener("pointercancel", onUp);
+    dom.addEventListener("wheel", onWheel, { passive: false });
+    dom.addEventListener("dblclick", () => resetView());
+
+    return () => {
+      renderer.setAnimationLoop(null);
+      ro.disconnect();
+      dom.removeEventListener("pointerdown", onDown);
+      dom.removeEventListener("pointermove", onMoveH);
+      dom.removeEventListener("pointerup", onUp);
+      dom.removeEventListener("pointercancel", onUp);
+      dom.removeEventListener("wheel", onWheel);
+      dom.removeEventListener("dblclick", resetView);
+      boxGeo.dispose(); stickerGeo.dispose(); bodyMat.dispose();
+      renderer.dispose();
+      if (dom.parentNode) dom.parentNode.removeChild(dom);
+      T.current = null;
+      turnState.current.plan = null;
+      turnAnim.current.active = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view]);
+
+  // ¡ª¡ª ÒÔÏÂº¯ÊıĞèÄÜ·ÃÎÊ T ÓëÒıÓÃ£¬¹Ê¶¨ÒåÔÚ×é¼şÄÚ£¨±Õ°ü£© ¡ª¡ª
+  function applyView(r: { x: number; y: number }) {
+    const t = T.current; if (!t) return;
+    const qx = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), (r.x * Math.PI) / 180);
+    const qy = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), (r.y * Math.PI) / 180);
+    t.orbit.quaternion.copy(qx).multiply(qy);
+  }
+  function applyZoom() {
+    const t = T.current; if (!t) return;
+    const d = BASE_DIST * scaleRef.current;
+    t.camera.position.copy(t.camDir).multiplyScalar(d);
+    t.camera.lookAt(0, 0, 0);
+  }
+  function updateStickers() {
+    const t = T.current; if (!t) return;
+    const st = displayRef.current; const hl = highlightRef.current;
+    for (const c of t.cubies) {
+      for (let f = 0; f < 6; f++) {
+        const dir = DIRS[f];
+        const key = `${c.pos[0]},${c.pos[1]},${c.pos[2]},${dir[0]},${dir[1]},${dir[2]}`;
+        const col = st[key];
+        const m = c.stickers.get(f)!;
+        if (col === undefined) { m.visible = false; continue; }
+        m.visible = true;
+        (m.material as THREE.MeshStandardMaterial).color.set(FACE_COLORS[col]);
+        const mat = m.material as THREE.MeshStandardMaterial;
+        if (hl === f) { mat.emissive.set(0x2563eb); mat.emissiveIntensity = 0.55; }
+        else { mat.emissive.set(0x000000); mat.emissiveIntensity = 0; }
+      }
+    }
+  }
+  function applyLayerRotation(eM: Vec3, angleRad: number) {
+    const t = T.current; if (!t) return;
+    const q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(eM[0], eM[1], eM[2]), angleRad);
+    for (const c of t.cubies) {
+      const onLayer = c.basePos.getComponent(turnState.current.axis) === turnState.current.layer;
+      if (onLayer) {
+        c.mesh.position.copy(c.basePos).applyQuaternion(q);
+        c.mesh.quaternion.copy(q);
+      } else {
+        c.mesh.position.copy(c.basePos);
+        c.mesh.quaternion.identity();
+      }
+    }
+  }
+  function resetCubies() {
+    const t = T.current; if (!t) return;
+    for (const c of t.cubies) { c.mesh.position.copy(c.basePos); c.mesh.quaternion.identity(); }
+  }
+
+  function onDown(e: PointerEvent) {
+    if (!interactiveRef.current) return;
+    const t = T.current; if (!t) return;
+    const rect = t.renderer.domElement.getBoundingClientRect();
+    const ndc = new THREE.Vector2(
+      ((e.clientX - rect.left) / rect.width) * 2 - 1,
+      -((e.clientY - rect.top) / rect.height) * 2 + 1
+    );
+    t.ray.setFromCamera(ndc, t.camera);
+    const hits = t.ray.intersectObjects(t.cubies.map((c) => c.mesh), false);
+    if (etRef.current && hits.length > 0) {
+      const hit = hits[0];
+      const cubie = hit.object as THREE.Mesh;
+      const cRec = t.cubies.find((c) => c.mesh === cubie)!;
+      const n = hit.face!.normal.clone(); // ¾Ö²¿·¨Ïß£¨ºĞÌåÎ´Ğı×ªÊ± = ÒıÇæ·½Ïò£©
+      const faceId = faceIdOfDir([n.x, n.y, n.z]);
+      gesture.current = { mode: "turn", x: e.clientX, y: e.clientY, faceId, pos: cRec.pos, started: false };
+    } else {
+      gesture.current = { mode: "orbit", x: e.clientX, y: e.clientY, started: false };
+    }
+    draggingRef.current = true; setDragging(true);
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+    orbitVel.current = { x: 0, y: 0 };
+  }
+
+  function onMoveH(e: PointerEvent) {
     const g = gesture.current;
     if (g.mode === "none") return;
-    const dx = e.clientX - g.x;
-    const dy = e.clientY - g.y;
+    const dx = e.clientX - g.x, dy = e.clientY - g.y;
     if (g.mode === "orbit") {
-      const vx = -dy * 0.32;
-      const vy = dx * 0.32;
-      setRot((r) => ({ x: r.x + vx, y: r.y + vy }));
+      const vx = -dy * 0.32, vy = dx * 0.32;
+      rotRef.current = { x: rotRef.current.x + vx, y: rotRef.current.y + vy };
+      applyView(rotRef.current);
       orbitVel.current = { x: vx, y: vy };
       return;
     }
-    if (!g.started) {
-      if (Math.hypot(dx, dy) < 5) return;
-      g.started = true;
-    }
+    if (!g.started) { if (Math.hypot(dx, dy) < 5) return; g.started = true; }
     if (g.faceId === undefined || !g.pos) return;
-    const plan = computeTurn(g.faceId, g.pos, dx, dy, rot);
-    if (!plan) {
-      setTurnBoth(null);
-      return;
-    }
-    setTurnBoth({
-      eAxis: plan.axis,
-      eLayer: plan.layerCoord,
-      cAxis: [plan.eM[0], -plan.eM[1], plan.eM[2]],
-      angle: -90 * plan.progress,
-      progress: plan.progress,
-      move: plan.move,
-    });
-  };
+    const plan = computeTurn(g.faceId, g.pos, dx, dy, rotRef.current);
+    if (!plan) { turnState.current.plan = null; resetCubies(); return; }
+    turnState.current.plan = plan;
+    turnState.current.axis = plan.axis;
+    turnState.current.layer = plan.layerCoord;
+    g.plan = plan;
+    applyLayerRotation(plan.eM, plan.progress * (Math.PI / 2));
+  }
 
-  const endGesture = () => {
+  function onUp() {
     const g = gesture.current;
+    draggingRef.current = false; setDragging(false);
+    if (g.mode === "orbit") { gesture.current = { mode: "none", x: 0, y: 0, started: false }; return; }
+    if (g.mode !== "turn" || !g.started || !turnState.current.plan) { resetCubies(); gesture.current = { mode: "none", x: 0, y: 0, started: false }; return; }
+    const plan = turnState.current.plan;
+    const commit = Math.abs(plan.progress) >= 0.5;
+    const target = commit ? (plan.progress >= 0 ? Math.PI / 2 : -Math.PI / 2) : 0;
+    turnAnim.current = {
+      active: true, from: plan.progress * (Math.PI / 2), to: target, start: performance.now(), dur: 180,
+      cb: () => {
+        if (commit) {
+          const move = plan.move;
+          const next = applyMove(displayRef.current, move);
+          displayRef.current = next;
+          if (onMoveRef.current) onMoveRef.current(move);
+          else setInternal(next);
+        }
+        resetCubies();
+        updateStickers();
+      },
+    };
     gesture.current = { mode: "none", x: 0, y: 0, started: false };
-    setDragging(false);
-    if (g.mode === "orbit") {
-      // æƒ¯æ€§
-      const v = orbitVel.current;
-      if (Math.abs(v.x) > 0.08 || Math.abs(v.y) > 0.08) {
-        const step = () => {
-          setRot((r) => ({ x: r.x + v.x, y: r.y + v.y }));
-          v.x *= 0.9;
-          v.y *= 0.9;
-          if (Math.abs(v.x) > 0.05 || Math.abs(v.y) > 0.05) raf.current = requestAnimationFrame(step);
-          else raf.current = null;
-        };
-        raf.current = requestAnimationFrame(step);
-      }
-      return;
-    }
-    if (g.mode !== "turn" || !g.started) return;
-    const t = turnRef.current;
-    if (!t) return;
-    const commit = Math.abs(t.progress) >= 0.5;
-    const target = commit ? (t.progress >= 0 ? -90 : 90) : 0;
-    setTurnBoth({ ...t, angle: target });
-    setSnapping(true);
-    window.setTimeout(() => {
-      if (commit) {
-        if (onMove) onMove(t.move);
-        else setInternal((prev) => applyMove(prev, t.move));
-      }
-      setTurnBoth(null);
-      setSnapping(false);
-    }, 200);
-  };
+  }
 
-  useEffect(() => cancelInertia, []);
+  function onWheel(e: WheelEvent) {
+    e.preventDefault();
+    scaleRef.current = Math.min(1.8, Math.max(0.55, scaleRef.current * (e.deltaY > 0 ? 1.08 : 0.92)));
+    applyZoom();
+  }
 
-  const resetView = () => {
-    cancelInertia();
-    setRot(DEFAULT_ROT);
-    setScale(1);
-  };
+  function resetView() {
+    rotRef.current = DEFAULT_ROT; scaleRef.current = 1;
+    applyView(DEFAULT_ROT); applyZoom();
+  }
 
-  // å•å—å—å…‰äº®åº¦ï¼ˆæ¨¡æ‹ŸçœŸå®å…‰ç…§ï¼šæœå‘å…‰çš„é¢æ›´äº®ï¼‰
-  const shadeOf = (d: Vec3): number => {
-    const n = applyOrbit(d, rot.x, rot.y);
-    const dt = Math.max(0, dot(n, LIGHT));
-    return 0.62 + 0.48 * dt;
-  };
-
-  // 3D å‡ ä½•
-  const S = size;
-  const V = S * 0.7;
-  const u = V / 3;
-  const cy = (p: Vec3) => -p[1] * u;
-
-  // 2D å±•å¼€å›¾
+  // 2D Õ¹¿ªÍ¼
   const s = size / 13;
   const g = s * 0.35;
   const block = 3 * s;
   const width = 4 * block + 3 * g;
   const height = 3 * block + 2 * g;
 
+  // ÊÓÍ¼Ô¤Éè
+  const presets: [string, number, number][] = [
+    ["Ç°", -26, -34], ["ÉÏ", -90, 0], ["×ó", 0, 90], ["ÓÒ", 0, -90], ["Á¢Ìå", -28, -28], ["¸´Î»", -26, -34],
+  ];
+
   return (
     <div className="w-full" data-testid={testId}>
       <div className="flex gap-1 mb-3 text-xs">
-        <button
-          onClick={() => setView("net")}
-          className={`px-3 py-1 rounded-md transition ${
-            view === "net" ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600"
-          }`}
-        >
-          å±•å¼€å›¾
-        </button>
-        <button
-          onClick={() => setView("3d")}
-          className={`px-3 py-1 rounded-md transition ${
-            view === "3d" ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600"
-          }`}
-        >
-          3D è§†å›¾
-        </button>
+        <button data-view="net" onClick={() => setView("net")} className={`px-3 py-1 rounded-md transition ${view === "net" ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600"}`}>Õ¹¿ªÍ¼</button>
+        <button data-view="3d" onClick={() => setView("3d")} className={`px-3 py-1 rounded-md transition ${view === "3d" ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600"}`}>3D ÊÓÍ¼</button>
       </div>
 
       {view === "net" ? (
         <div className="flex justify-center">
-          <svg
-            width={size}
-            height={(size * height) / width}
-            viewBox={`0 0 ${width} ${height}`}
-            className="max-w-full"
-          >
+          <svg width={size} height={(size * height) / width} viewBox={`0 0 ${width} ${height}`} className="max-w-full">
             {LAYOUT.map(({ face, col, row }) => {
-              const ox = col * (block + g);
-              const oy = row * (block + g);
+              const ox = col * (block + g), oy = row * (block + g);
               const colors = getFaceColors(display, face);
               const active = highlightFace === face;
               return (
                 <g key={face}>
-                  {colors.map((rowArr, i) =>
-                    rowArr.map((c, j) => (
-                      <rect
-                        key={`${i}-${j}`}
-                        x={ox + j * s + s * 0.06}
-                        y={oy + i * s + s * 0.06}
-                        width={s * 0.88}
-                        height={s * 0.88}
-                        rx={s * 0.18}
-                        fill={FACE_COLORS[c]}
-                        stroke="#0f172a"
-                        strokeOpacity={0.18}
-                        strokeWidth={1}
-                      />
-                    ))
-                  )}
-                  {active && (
-                    <rect
-                      x={ox}
-                      y={oy}
-                      width={block}
-                      height={block}
-                      rx={s * 0.3}
-                      fill="none"
-                      stroke="#2563eb"
-                      strokeWidth={s * 0.18}
-                    />
-                  )}
+                  {colors.map((rowArr, i) => rowArr.map((c, j) => (
+                    <rect key={`${i}-${j}`} x={ox + j * s + s * 0.06} y={oy + i * s + s * 0.06} width={s * 0.88} height={s * 0.88} rx={s * 0.18} fill={FACE_COLORS[c]} stroke="#0f172a" strokeOpacity={0.18} strokeWidth={1} />
+                  )))}
+                  {active && <rect x={ox} y={oy} width={block} height={block} rx={s * 0.3} fill="none" stroke="#2563eb" strokeWidth={s * 0.18} />}
                 </g>
               );
             })}
@@ -295,88 +421,28 @@ export default function InteractiveCube({
         </div>
       ) : (
         <div className="flex flex-col items-center">
-          <div
-            ref={stageRef}
-            className="relative cursor-grab active:cursor-grabbing select-none touch-none"
-            style={{
-              width: S,
-              height: S,
-              perspective: S * 1.9,
-              touchAction: "none",
-            }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={endGesture}
-            onPointerCancel={endGesture}
-            onDoubleClick={interactive ? resetView : undefined}
-            title="åœ¨è‰²å—ä¸Šæ‹–åŠ¨=æ‹§åŠ¨è¯¥å±‚ Â· åœ¨ç©ºç™½å¤„æ‹–åŠ¨=æ—‹è½¬è§†è§’ Â· æ»šè½®ç¼©æ”¾ Â· åŒå‡»å¤ä½"
-          >
-            <div className="cube-shadow" style={{ top: `calc(50% + ${V * 0.6}px)` }} />
+          {webglFail ? (
             <div
-              className={`cube-3d${dragging ? " dragging" : ""}${snapping ? " snapping" : ""}`}
-              style={{
-                width: S,
-                height: S,
-                transform: `rotateX(${rot.x}deg) rotateY(${rot.y}deg) scale(${scale})`,
-                ["--u" as any]: `${u}px`,
-              }}
+              data-testid="webgl-fallback"
+              className="flex items-center justify-center rounded-xl bg-slate-100 text-center text-sm text-slate-500 p-6"
+              style={{ width: size, height: size }}
             >
-              {cubies.map((cb) => {
-                const cx = cb.pos[0] * u;
-                const cz = cb.pos[2] * u;
-                const inLayer = turn && cb.pos[turn.eAxis] === turn.eLayer;
-                const rotCss = inLayer
-                  ? `rotate3d(${turn!.cAxis[0]},${turn!.cAxis[1]},${turn!.cAxis[2]},${turn!.angle}deg) `
-                  : "";
-                return (
-                  <div
-                    key={cb.pos.join(",")}
-                    className="cubie"
-                    style={{
-                      transform: `${rotCss}translate3d(${cx}px, ${cy(cb.pos)}px, ${cz}px)`,
-                    }}
-                  >
-                    {cb.facelets.map((f, i) => (
-                      <div
-                        key={i}
-                        className={`cubie-face${highlightFace === f.faceId ? " hl" : ""}`}
-                        data-face={f.faceId}
-                        data-pos={cb.pos.join(",")}
-                        onPointerDown={(e) => startTurn(f.faceId, cb.pos, e)}
-                        style={{ transform: faceCssTransform(f.dir, u / 2) }}
-                      >
-                        <div
-                          className="sticker"
-                          style={{
-                            ["--c" as any]: FACE_COLORS[f.color],
-                            filter: `brightness(${shadeOf(f.dir).toFixed(3)})`,
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                );
-              })}
+              <div>
+                µ±Ç°»·¾³²»Ö§³Ö WebGL£¬3D ÊÓÍ¼Ôİ²»¿ÉÓÃ¡£<br />
+                ÇëÇĞ»»µ½¡¸Õ¹¿ªÍ¼¡¹¼ÌĞø£¬»òÔÚÖ§³Ö WebGL µÄä¯ÀÀÆ÷ÖĞ´ò¿ª±¾Ò³Ãæ¡£
+              </div>
             </div>
-          </div>
+          ) : (
+            <div
+              ref={containerRef}
+              className={`relative rounded-xl overflow-hidden ${dragging ? "cursor-grabbing" : "cursor-grab"}`}
+              style={{ width: size, height: size, background: "radial-gradient(120% 120% at 50% 30%, #eef2fb 0%, #dde6f5 55%, #c7d4ea 100%)" }}
+              title="ÔÚÉ«¿éÉÏÍÏ¶¯=Å¡¶¯¸Ã²ã ¡¤ ÔÚ¿Õ°×´¦ÍÏ¶¯=Ğı×ªÊÓ½Ç ¡¤ ¹öÂÖËõ·Å ¡¤ Ë«»÷¸´Î»"
+            />
+          )}
           <div className="flex flex-wrap gap-1 mt-3 justify-center">
-            {(
-              [
-                ["å‰", -26, -34],
-                ["ä¸Š", -90, 0],
-                ["å·¦", 0, 90],
-                ["å³", 0, -90],
-                ["ç«‹ä½“", -28, -28],
-                ["å¤ä½", -26, -34],
-              ] as [string, number, number][]
-            ).map(([label, x, y]) => (
-              <button
-                key={label}
-                onClick={() => (label === "å¤ä½" ? resetView() : setRot({ x, y }))}
-                className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs transition"
-              >
-                {label}
-              </button>
+            {presets.map(([label, x, y]) => (
+              <button key={label} onClick={() => { if (label === "¸´Î»") resetView(); else { rotRef.current = { x, y }; applyView({ x, y }); } }} className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs transition">{label}</button>
             ))}
           </div>
           {children}
