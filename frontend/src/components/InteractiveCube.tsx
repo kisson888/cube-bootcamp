@@ -35,7 +35,7 @@ function faceIdOfDir(d: Vec3): number {
 
 const DEFAULT_ROT = { x: -26, y: -34 };
 const SP = 1.0; // cubie ¼ä¾à
-const BASE_DIST = 8.6;
+const BASE_DIST = 6.68;
 
 function roundedRectShape(w: number, h: number, r: number): THREE.Shape {
   const s = new THREE.Shape();
@@ -119,7 +119,7 @@ export default function InteractiveCube({
       return;
     }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setSize(W, H, false);
+    renderer.setSize(W, H);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -127,10 +127,13 @@ export default function InteractiveCube({
     container.appendChild(renderer.domElement);
     renderer.domElement.style.touchAction = "none";
     renderer.domElement.style.display = "block";
+    // ÈÃ canvas Ê¼ÖÕÆÌÂúÈÝÆ÷£¨±ÜÃâ¸ß DPR ÏÂ»º³å³ß´ç±»µ±³É CSS ³ß´çµ¼ÖÂ·Å´ó²ÃÇÐ£©
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 100);
-    camera.position.set(4.2, 4.6, 6.2);
+    camera.position.set(3.2, 3.5, 4.7);
     camera.lookAt(0, 0, 0);
     const camDir = camera.position.clone().normalize();
 
@@ -217,7 +220,7 @@ export default function InteractiveCube({
     // ×ÔÊÊÓ¦³ß´ç
     const ro = new ResizeObserver(() => {
       const w = container.clientWidth, h = container.clientHeight;
-      if (w && h) { renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+      if (w && h) { renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); }
     });
     ro.observe(container);
 
