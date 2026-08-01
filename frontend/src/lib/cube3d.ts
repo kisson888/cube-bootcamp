@@ -123,11 +123,13 @@ export function computeTurn(
 ): TurnPlan | null {
   const N = NORMALS[faceId];
   const { t1, t2 } = FACE_BASIS[faceId];
-  // 把面基投影到屏幕 2D（y 向下，与拖拽 dy 同向）
+  // 把面基投影到屏幕 2D（y 向下，与拖拽 dy 同向）。
+  // 注意：applyOrbit 返回的是引擎坐标（y 向上），而屏幕/拖拽 dy 是 y 向下，
+  // 故这里对 y 取反，否则竖直拖拽方向会反向（向下拖却向上拧）。
   const S1 = applyOrbit(t1, rot.x, rot.y);
   const S2 = applyOrbit(t2, rot.x, rot.y);
-  const s1 = { x: S1[0], y: S1[1] };
-  const s2 = { x: S2[0], y: S2[1] };
+  const s1 = { x: S1[0], y: -S1[1] };
+  const s2 = { x: S2[0], y: -S2[1] };
   const det = s1.x * s2.y - s2.x * s1.y;
   if (Math.abs(det) < 1e-6) return null;
   const a = (dx * s2.y - dy * s2.x) / det;
@@ -148,7 +150,10 @@ export function computeTurn(
   const h = Math.hypot(a, b); // 面内拖拽幅度（cubie 单位）
   const r = Math.max(len(sub(pos, [axis === 0 ? pos[axis] : 0, axis === 1 ? pos[axis] : 0, axis === 2 ? pos[axis] : 0] as Vec3)), 0.6);
   const progress = clamp((h / r) * 1.15 * Math.sign(disp || 1), -1, 1);
-  const move = groupOf(axis, layerCoord) + (progress >= 0 ? "" : "'");
+  // 实际施加的转动 = eM(带符号的转轴) × progress，故 move 的顺/逆必须同时考虑
+  // 转轴符号与 progress 符号，否则会与真实视觉转动不一致（例如向上拖 F、向下拖却是 F 而非 F'）。
+  const dirSign = eM[axis] * Math.sign(progress || 1);
+  const move = groupOf(axis, layerCoord) + (dirSign >= 0 ? "" : "'");
   return { axis, layerCoord, eM, progress, move };
 }
 
